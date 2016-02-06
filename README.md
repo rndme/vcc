@@ -23,7 +23,7 @@ Uses ES6 template literals to replace JSX, a virtual DOM for fast updates, and w
 
 
 ## General Conversion Routine
-It's easy to convert demos from React to VCC by making a few sumple syntax adjustments to bring JSX in line with HTML5.
+It's easy to convert demos from React to VCC by making a few simple syntax adjustments to bring JSX in line with HTML5.
 
 1. change the tag wrappers in `render()` return from ` ( ` and ` ) ` to <code>`</code> (both sides)
 1. add <code>`</code> "quotes" around JSX literals used in any methods, so as to create legit Strings
