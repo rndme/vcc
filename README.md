@@ -1,2 +1,2 @@
-# cc
-component creator : lightweight reactive view components
+# vcc
+View Component Creator : lightweight reactive view components

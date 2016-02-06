@@ -1,15 +1,15 @@
 {
-  "name": "cc",
-  "main": "cc.js",
+  "name": "vcc",
+  "main": "vcc.js",
   "version": "1.0.0",
-  "description": "component creator : lightweight reactive view components",
+  "description": "View Component Creator : lightweight reactive view components",
   "keywords": [
     "components",
     "webcomponents",
     "react",
     "MVC"
   ],
-  "homepage": "https://github.com/rndme/cc/",
+  "homepage": "https://github.com/rndme/vcc/",
   "license": "CC-BY-4.0",
   "author": {
     "name": "dandavis",
@@ -18,15 +18,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rndme/cc.git"
+    "url": "https://github.com/rndme/vcc.git"
   },
   "bugs": {
     "email": "rndme@users.noreply.github.com"
   },
   "files": [
-    "cc.js"
+    "vcc.js"
   ],
-  "npmName": "cc",
+  "npmName": "vcc",
   "npmFileMap": [
     {
       "basePath": "/",
