@@ -5,7 +5,7 @@ View Component Creator : lightweight reactive view components
 A react-inspired way of using web standards to create reusable semantic components. 
 
 ## Why
-React has some great ideas, but I don't like build steps or large runtimes.
+React has some great ideas, but I don't like build steps or large runtimes - VCC core is 100 lines, all run-time
 
 ## How 
 Uses ES6 template literals to replace JSX, a virtual DOM for fast updates, and web component's custom elements for smart HTML tags.
