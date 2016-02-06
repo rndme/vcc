@@ -34,5 +34,6 @@
         "*.js"
       ]
     }
-  ]
+  ],
+  "tonicExample": " 'VCC is for browser enviroments only, visit http://pagedemos.com/vccbasicdemo/ to kick the tires. '; "
 }
