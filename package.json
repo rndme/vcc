@@ -1,0 +1,38 @@
+{
+  "name": "cc",
+  "main": "cc.js",
+  "version": "1.0.0",
+  "description": "component creator : lightweight reactive view components",
+  "keywords": [
+    "components",
+    "webcomponents",
+    "react",
+    "MVC"
+  ],
+  "homepage": "https://github.com/rndme/cc/",
+  "license": "CC-BY-4.0",
+  "author": {
+    "name": "dandavis",
+    "email": "rndme@users.noreply.github.com",
+    "url": "http://danml.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rndme/cc.git"
+  },
+  "bugs": {
+    "email": "rndme@users.noreply.github.com"
+  },
+  "files": [
+    "cc.js"
+  ],
+  "npmName": "cc",
+  "npmFileMap": [
+    {
+      "basePath": "/",
+      "files": [
+        "*.js"
+      ]
+    }
+  ]
+}
