@@ -59,10 +59,10 @@ It's easy to convert demos from React to VCC by making a few simple syntax adjus
 The template syntax in VCC is called HTML, as in regular HTML5. Use ES6 template literals to contain pretty (un-escaped) multi-line HTML in JS files.
 If you want backwards compatibility with non-ES6 browsers, use something like babel to transform your source into ES5.
 
-note:  intraHTML is the entry way to the internal VDOM-based partial updater, used to render without defining a component.
+note:  VCC.intraHTML is the entry way to the internal VDOM-based partial updater, used to render without defining a component.
 
 ```js
-intraHTML(
+VCC.intraHTML(
   document.getElementById('example'),
   `<h1>Hello, world!</h1>`
 );
@@ -75,7 +75,7 @@ You could also use JavaScript in HTML. It takes angle brackets (&lt;) as the beg
 ```js
 var names = ['Alice', 'Emily', 'Kate'];
 
-intraHTML(
+VCC.intraHTML(
   document.getElementById('example'),
   `<div>
   ${
@@ -97,7 +97,7 @@ var arr = [
   `<h2>VCC is awesome</h2>`,
 ];
 
-intraHTML(
+VCC.intraHTML(
   document.getElementById('example'),
   `<div>${arr.join('')}</div>`
 );
