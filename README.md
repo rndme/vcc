@@ -24,9 +24,9 @@ Uses ES6 template literals to replace JSX, a virtual DOM for fast updates, and w
 ## Demos
  ( [adapted from a series of informative react demos](https://github.com/ruanyf/react-demos) ) by [ruanyf](https://github.com/ruanyf)
 
-1. [Render HTML](#demo01-render-jsx-source--live)
-1. [Use JavaScript in HTML](#demo02-use-javascript-in-jsx-source--live)
-1. [Use array in HTML](#demo03-use-array-in-jsx-source--live)
+1. [Render HTML](#demo01-render-html-source-live)
+1. [Use JavaScript in HTML](#demo02-use-javascript-in-html-source-live)
+1. [Use array in HTML](#demo03-use-array-in-html-source--live)
 1. [Define a component](#demo04-define-a-component-source--live)
 1. [this.props.innerHTML](#demo05-thispropschildren-source--live)
 1. PropTypes - NA at this time
