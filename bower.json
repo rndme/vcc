@@ -1,0 +1,19 @@
+{
+  "name": "cc",
+  "main": "cc.js",
+  "homepage": "https://github.com/rndme/cc",
+  "description": "component creator : lightweight reactive view components",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
