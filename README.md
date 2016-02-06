@@ -13,12 +13,27 @@ Uses ES6 template literals to replace JSX, a virtual DOM for fast updates, and w
 ## Differences from React
 
 * no JSX, return a string of HTML from .render()
-*	no built-in spreading props from JSX, but you can inject strings anywhere in HTML
-*	omit the on prefix on HTML event attribs, don't use {} to mean ""
-*	no .propTypes on def, use intrinsic validation if needed, which works on production to boot
-*	no .statics available on definition (not that useful anyway)
-* displayName on defs is REQUIRED, not optional, it defines the tagName here
-*	no ref string support, only functions, which is recommended anyway
+* no built-in spreading props from JSX, but you can inject strings anywhere in HTML
+* omit the on prefix on HTML event attribs, don't use {} to mean ""
+* no .propTypes on def, use intrinsic validation if needed, which works on production to boot
+* no .statics available on definition (not that useful anyway)
+* displayName on defs is REQUIRED, not optional, it defines the tagName
+* no ref string support, only functions, which is recommended anyway
+* tag names must use a `vcc-` prefix and no uppercase letters to conform with HTML5 custom elements
+
+
+## General Conversion Routine
+It's easy to convert demos from React to VCC by making a few sumple syntax adjustments to bring JSX in line with HTML5.
+
+1. change the tag wrappers in `render()` return from ` ( ` and ` ) ` to <code>`</code> (both sides)
+1. add <code>`</code> "quotes" around JSX literals used in any methods, so as to create legit Strings
+1. change the JS delimiters from `{...}` to `${...}` so as to use native ES6 templating
+1. change custom tags from CamelCase to lowercase, then prefix `vcc-` to enable it as a custom element
+1. change the CamelCase event attributes (like `onClick`) to lowercase with an `on-` prefix (like `on-click`)
+1. change `React.createClass` to `VCC` and add/modify the `displayName` property to custom tag name
+
+  
+  
   
 
 ## Demos
