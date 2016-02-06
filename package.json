@@ -29,7 +29,6 @@
   "npmName": "vcc",
   "npmFileMap": [
     {
-      "basePath": "/",
       "files": [
         "*.js"
       ]
