@@ -22,8 +22,7 @@ Uses ES6 template literals to replace JSX, a virtual DOM for fast updates, and w
   
 
 ## Demos
-
-## Index
+ ( [adapted from a series of informative react demos](https://github.com/ruanyf/react-demos) ) by [ruanyf](https://github.com/ruanyf)
 
 1. [Render HTML](#demo01-render-jsx-source)
 1. [Use JavaScript in HTML](#demo02-use-javascript-in-jsx-source)
