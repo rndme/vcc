@@ -38,6 +38,8 @@ It's easy to convert demos from React to VCC by making a few simple syntax adjus
 
 ## Demos
  ( [adapted from a series of informative react demos](https://github.com/ruanyf/react-demos) ) by [ruanyf](https://github.com/ruanyf)
+ 
+ You can also run/tweak/destroy demo04 in an [editable online pagedemo](http://pagedemos.com/vccbasicdemo/)
 
 1. [Render HTML](#demo01-render-html-source-live)
 1. [Use JavaScript in HTML](#demo02-use-javascript-in-html-source-live)
