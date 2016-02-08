@@ -35,7 +35,10 @@ function VCC(def) {
 	  	return arguments.length===4 ? fn.call(that, a, b) : fn.call(that, a);
 	}
   
-  	var EVENTS=["click", "change","submit","input","paste"], fnCache={}, tagName = "vcc-" + def.displayName;		
+  	var EVENTS="reset,invalid,focus,blur,select,keydown,keypress,keyup,mousedown,mouseup,click,change,submit,input,paste".split(","),
+  	fnCache={}, 
+  	tagName = "vcc-" + def.displayName;		
+  	
 	if(VCC[tagName]) return; // don't define a component twice
 	VCC[tagName] = def; // add this def to the collective
 
