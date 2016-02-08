@@ -7,15 +7,13 @@
 		// Node. Does not work with strict CommonJS, but
 		// only CommonJS-like environments that support module.exports,
 		// like Node.
-		module.exports = factory();
+		module.exports = factory({});
 	} else {
 		// Browser globals (root is window)
-		root.VCC = factory();
+		root.VCC = factory(root);
   }
-}(this, function () {
+}(this, function (pub) {
 
-  
-  var pub=window;
   
 
 // virtual dom:
@@ -127,31 +125,25 @@ function VCC(def) {
 	}; //end create callBack
 
 
-
-
-	
-	// watch all attribs for changes, firing change() if needed to sync attrib+props
+	// watch attribs for changes to sync attribs + defined props
 	proto.attributeChangedCallback= function _change(e,old,v){	
-		if(e=="lang" || e=="class"){return; }
-	  var newProps = Object.assign({}, this.props);
-	  if(def.propTypes && def.propTypes[e])try{ v=def.propTypes[e](v);}catch(y){}
-	  	newProps[e]=v;
-	  	if(def.componentWillReceiveProps) def.componentWillReceiveProps.call(this, newProps);
-	  	Object.assign(this.props, newProps);
-	  
-	  	if(def.shouldComponentUpdate){
-		  	if(def.shouldComponentUpdate.call(this, newProps, this.state)){
-			  	if(def.componentWillUpdate) def.componentWillUpdate.call(this, newProps, this.state);
-			  	this._renderer();	  	
+		if(e=="class"){return; } // class is too noisy to make a useable prop
+		var newProps = Object.assign({}, this.props); // shallow copy of props
+		if(def.propTypes && def.propTypes[e])try{ v=def.propTypes[e](v);}catch(y){} //coerce if needed
+		newProps[e]=v; 
+		call(def.componentWillReceiveProps, this, newProps);
+		Object.assign(this.props, newProps); // copy new props into current
+		if(def.shouldComponentUpdate){
+			if(call(def.shouldComponentUpdate, this, newProps, this.state)){
+				call(def.componentWillUpdate, this, newProps, this.state);
+				this._renderer();	  	
 			}
 		}else{
-		  if(def.componentWillUpdate) def.componentWillUpdate.call(this, newProps, this.state);
-		  this._renderer();		  
+			call(def.componentWillUpdate, this, newProps, this.state);
+			this._renderer();		  
 		}
 	};
-	
-	
-	
+		
   	// use registerElement() to make the new tag name recognized by the browser
 	return proto._spawn = def._spawn = document.registerElement(tagName, {prototype: proto});
 }; //end VCC()
