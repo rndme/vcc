@@ -35,10 +35,7 @@ function VCC(def) {
 	  	return arguments.length===4 ? fn.call(that, a, b) : fn.call(that, a);
 	}
   
-  	var EVENTS="reset,invalid,focus,blur,select,keydown,keypress,keyup,mousedown,mouseup,click,change,submit,input,paste".split(","),
-  	fnCache={}, 
-  	tagName = "vcc-" + def.displayName;		
-  	
+  	var EVENTS=["click", "change","submit","input","paste"], fnCache={}, tagName = "vcc-" + def.displayName;		
 	if(VCC[tagName]) return; // don't define a component twice
 	VCC[tagName] = def; // add this def to the collective
 
@@ -159,7 +156,35 @@ function VCC(def) {
 	  	return k+"="+JSON.stringify(v);
 	}).join("");
   };
+
   
-return VCC;
+// Tiny evented state store inspired by https://github.com/rackt/redux/blob/master/src/createStore.js
+// changes: uses an object of methods instead of switch(e.type), no error checking, can pass a string action name ("TEST") instead of ({type:"TEST"})
+VCC.Store = function Store(reductions, state, pool) {
+	if(typeof reductions  != "object") throw "Missing reduction definitions Object";
+	state = state || {};
+	pool = pool || [];
+	return {
+		getState: function(){ 
+			return Object.assign({}, state);
+		},
+		unsubscribe: function(fnReducer){  
+			return pool = pool.filter(function(fn){return fn !== fnReducer;});
+		},
+		subscribe: function(fnReducer) {
+			pool.push(fnReducer);
+			return this.unsubscribe.bind(this, fnReducer);
+		},
+		dispatch: function(action){   // allows reducer return values to be fed to handlers via this:
+			pool.forEach(function(fn){fn.call(this)} , 
+				reductions[action.type || action](
+					state, 
+					(action.type ? action : {type: action})
+			));
+		}
+	};
+}; // end Store()
+  
+
+   return VCC;
 }));
-  
