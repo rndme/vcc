@@ -46,7 +46,7 @@ It's easy to convert demos from React to VCC by making a few simple syntax adjus
 1. [Use array in HTML](#demo03-use-array-in-html-source--live)
 1. [Define a component](#demo04-define-a-component-source--live)
 1. [this.props.innerHTML](#demo05-thispropschildren-source--live)
-1. PropTypes - NA at this time
+1. [PropTypes](#demo06-proptypes-source-live)
 1. [Finding a DOM node](#demo07-finding-a-dom-node-source--live)
 1. [this.state](#demo08-thisstate-source--live)
 1. [Form](#demo09-form-source--live)
@@ -162,6 +162,46 @@ Please be minded that the value of `this.children` has two possibilities. If the
 
 
 
+
+
+
+
+## Demo06: PropTypes ([source](https://github.com/ruanyf/react-demos/blob/master/demo06/index.html)) ([live](http://danml.com/vcc/react-demos/demo06/))
+
+Components have many specific attributes which are called ”props” in VCC and can be of any type, the default is `String`, which is how incoming prop updates from HTML5 attributes arrive.
+
+Sometimes you need a way to control and convert these props. You don't want users have the freedom to input anything into your components.
+
+VCC has a solution for this and it's called `propTypes`.
+
+```javascript
+
+      var MyTitle = VCC({
+	displayName: "mytitle",
+	
+        propTypes: {
+          title:String,
+        },
+
+        render: function() {
+          return `<h1> ${this.props.title} </h1>`;
+        }
+      });
+
+```
+
+The above component of `mytitle` has a props of `title`. `propTypes` tells VCC that the title should be _cast_ into a String. This is unlike React where `propTypes` serves to issue development-mode warnings, VCC actually applies the function to the incoming attribute value, reacting accordingly.To allow more than one type, use a simple custom function to handle as little or as much as needed.
+
+
+Now we give `Title` a number value.
+
+```javascript
+      var data = 123;
+	// needs to defined in JS to use template expressions on the outer tag:
+     main.innerHTML= `<vcc-mytitle title="${data}" ></vcc-mytitle>`;
+```
+
+This means the new property value is converted to a `String` _before_ updating `this.props`. Attributes in HTML5 arrive as Strings, so handle accordingly. if you want to pass objects that don't easily stringify, use `this.state` instead.
 
 
 
