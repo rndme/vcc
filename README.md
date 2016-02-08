@@ -12,14 +12,14 @@ Uses ES6 template literals to replace JSX, a virtual DOM for fast updates, and w
 
 ## Differences from React
 
-* no JSX, return a string of HTML from .render()
+* no JSX, returns a string of HTML from `render()`
 * no built-in spreading props from JSX, but you can inject strings anywhere in HTML
-* omit the on prefix on HTML event attribs, don't use {} to mean ""
-* no .propTypes on def, use intrinsic validation if needed, which works on production to boot
-* no .statics available on definition (not that useful anyway)
-* displayName on defs is REQUIRED, not optional, it defines the tagName
-* no ref string support, only functions, which is recommended anyway
-* tag names must use a `vcc-` prefix and no uppercase letters to conform with HTML5 custom elements
+* no prefix on HTML event attribs, doesn't use `{}` to mean `""`
+* no built-in helpers for `propTypes` on definition, use any function to coerce/default/throw as needed
+* no `.statics` available on definition (not that useful anyway, since it's instantiated via HTML)
+* `displayName` on definition is REQUIRED to defines the tagName
+* no `ref` _String_ support, but does accept _Functions_ (which are recommended)
+* tag names must use a `vcc-` prefix and _no_ uppercase letters to conform with HTML5 Custom Elements
 
 
 ## General Conversion Routine
