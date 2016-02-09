@@ -67,8 +67,7 @@ function VCC(def) {
 		var that = this, oldState, oldProps;
 		this.state = Object.assign({}, call(def.getInitialState, this) || {});
 		this._def = def;
-		this.props = call(this, def.getDefaultProps) || {};
-	  
+		this.props =  Object.assign({}, call(def.getDefaultProps, this) || {});
 	  	
 	  	[].forEach.call(this.attributes, function(attr, index){
 		  	if(EVENTS.indexOf(attr.name.replace(/^on\-/,""))!==-1) return;
@@ -77,7 +76,7 @@ function VCC(def) {
 		  	try{ val=Function("return "+ val).call(that); }catch(y){}
 		  	this.props[attr.name]=val;
 		}, this);
-	  
+
 		// bind any events to the actual tag:
 		EVENTS.forEach(function(evt) {
 			this.addEventListener(evt, function(e) {
@@ -125,6 +124,9 @@ function VCC(def) {
 	  
 		call(def.componentWillMount, this, def);
 	  	renderer(true);
+
+	
+
 	}; //end create callBack
 
 
@@ -163,11 +165,14 @@ function VCC(def) {
   
 // Tiny evented state store inspired by https://github.com/rackt/redux/blob/master/src/createStore.js
 // changes: uses an object of methods instead of switch(e.type), no error checking, can pass a string action name ("TEST") instead of ({type:"TEST"})
-VCC.Store = function Store(reductions, state, pool) {
+VCC.Store = Store;
+
+function Store(reductions, state, pool) {
 	if(typeof reductions  != "object") throw "Missing reduction definitions Object";
 	state = state || {};
 	pool = pool || [];
-	return {
+	var ret={
+		history: [],
 		getState: function(){ 
 			return Object.assign({}, state);
 		},
@@ -179,14 +184,23 @@ VCC.Store = function Store(reductions, state, pool) {
 			return this.unsubscribe.bind(this, fnReducer);
 		},
 		dispatch: function(action){   // allows reducer return values to be fed to handlers via this:
-			pool.forEach(function(fn){fn.call(this)} , 
-				reductions[action.type || action](
+			action = action.type ? action : {type: action};
+
+			if(!reductions[action.type] && action.type!="_INIT_" ) throw new ReferenceError("Unknown reducer group: "+action.type);
+			this.history.push(action);
+
+			pool.forEach(function(fn){fn.call(this, state)} , 
+				 action.type === "_INIT_" ? state : reductions[action.type](
 					state, 
-					(action.type ? action : {type: action})
+					action
 			));
 		}
 	};
+	setTimeout( ret.dispatch.bind(ret, "_INIT_"), 0);
+	return ret;
 }; // end Store()
+
+
   
 
    return VCC;
