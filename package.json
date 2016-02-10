@@ -1,7 +1,7 @@
 {
   "name": "vcc",
   "main": "vcc.js",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "View Component Creator : lightweight reactive view components",
   "keywords": [
     "components",
