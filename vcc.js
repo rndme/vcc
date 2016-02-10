@@ -164,8 +164,8 @@ function VCC(def) {
   };
 
 
-VCC.hasRoute=function(route, default){ 
-	return location.hash ? (location.hash.search(route)!=-1) : default; 
+VCC.hasRoute=function(route, fillIn ){ 
+	return location.hash ? (location.hash.search(route)!=-1) : fillIn; 
 };
 
 VCC.classes = function(a){  
