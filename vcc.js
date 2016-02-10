@@ -163,6 +163,27 @@ function VCC(def) {
 	}).join("");
   };
 
+
+VCC.hasRoute=function(route, default){ 
+	return location.hash ? (location.hash.search(route)!=-1) : default; 
+};
+
+VCC.classes = function(a){  
+	return Object.keys(a).filter(function(k){return a[k];}).join(" "); 
+};
+
+VCC.data = function _(elm, obj) {
+	if(!obj) return JSON.parse(JSON.stringify(elm.dataset));
+	Object.keys(obj).map(function(k) {
+		if(obj[k] === false) {
+			elm.removeAttribute("data-" + k);
+		} else {
+			elm.dataset[k] = obj[k] === true ? "" : obj[k];
+		}
+	});
+	return _(elm);
+};
+
   
 // Tiny evented state store inspired by https://github.com/rackt/redux/blob/master/src/createStore.js
 // changes: uses an object of methods instead of switch(e.type), no error checking, can pass a string action name ("TEST") instead of ({type:"TEST"})
@@ -201,8 +222,6 @@ function Store(reductions, state, pool) {
 	return ret;
 }; // end Store()
 
-
-  
-
    return VCC;
+
 }));
