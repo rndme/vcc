@@ -14,7 +14,7 @@ A react-inspired way of using web standards to create reusable semantic componen
 
 * no JSX, returns a string of HTML from `render()`
 * no built-in spreading props from JSX, but you can inject strings anywhere in HTML
-* no prefix on HTML event attribs, doesn't use `{}` to mean `""`
+* no `react-id` or other unique IDs cluttering your clean HTML5 markup
 * no built-in helpers for `propTypes` on definition, use any function to coerce/default/throw as needed
 * no `.statics` available on definition (not that useful anyway, since it's instantiated via HTML)
 * `displayName` on definition is REQUIRED to defines the tagName
