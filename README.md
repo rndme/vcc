@@ -10,6 +10,25 @@ A react-inspired way of using web standards to create reusable semantic componen
 ## How 
 [ES6 template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/template_strings) replace [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html), a [Virtual DOM](https://github.com/rndme/intraHTML) provides fast updates, and [HTML5 Custom Elements](https://www.w3.org/TR/custom-elements/) enables _real-life_ HTML tags.
 
+
+```javascript
+VCC({
+  displayName: "hello",
+  render: function() {
+    return `<h1>Hello ${this.props.name}</h1>`;
+  }
+});
+
+```
++
+```html
+  <vcc-hello name="World"></vcc-hello>
+```
+=
+```html
+  <vcc-hello name="World"><h1>Hello World</h1></vcc-hello>
+```
+
 ## Differences from React
 
 * no JSX, returns a string of HTML from `render()`
