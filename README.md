@@ -37,6 +37,9 @@ It's easy to convert demos from React to VCC by making a few simple syntax adjus
   
 
 ## Demos
+
+View the Unofficial [TodoMVC](http://todomvc.com/) [Todo Application Demo](http://danml.com/todo/) for one of the simplest implimentations yet.
+
  ( [adapted from a series of informative react demos](https://github.com/ruanyf/react-demos) ) by [ruanyf](https://github.com/ruanyf)
  
  You can also run/tweak/destroy demo04 in an [editable online pagedemo](http://pagedemos.com/vccbasicdemo/)
