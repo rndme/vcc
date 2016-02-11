@@ -121,7 +121,8 @@ function VCC(def) {
 			Object.assign(that.state, state);
 		};
 	  
-	  	this._renderer=	this.setState.bind(this, {});
+	  	this._renderer=	renderer;
+		this._render= this.setState.bind(this, {});
 
 		call(def.componentWillMount, this, def);
 	  	renderer(true);
