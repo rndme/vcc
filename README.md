@@ -20,11 +20,8 @@ VCC({
 });
 
 ```
-+
-```html
-  <vcc-hello name="World"></vcc-hello>
++`<vcc-hello name="World"></vcc-hello>` =
 ```
-=
 ```html
   <vcc-hello name="World"><h1>Hello World</h1></vcc-hello>
 ```
