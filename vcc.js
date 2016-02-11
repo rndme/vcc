@@ -172,6 +172,10 @@ VCC.classes = function(a){
 	return Object.keys(a).filter(function(k){return a[k];}).join(" "); 
 };
 
+VCC.checked=function(v){
+	return v ? ' checked="" ' : '';
+};
+
 VCC.data = function _(elm, obj) {
 	if(!obj) return JSON.parse(JSON.stringify(elm.dataset));
 	Object.keys(obj).map(function(k) {
