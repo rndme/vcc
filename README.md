@@ -18,10 +18,8 @@ VCC({
     return `<h1>Hello ${this.props.name}</h1>`;
   }
 });
-
 ```
 +`<vcc-hello name="World"></vcc-hello>` =
-```
 ```html
   <vcc-hello name="World"><h1>Hello World</h1></vcc-hello>
 ```
