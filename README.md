@@ -47,7 +47,22 @@ It's easy to convert demos from React to VCC by making a few simple syntax adjus
 
   
   
-  
+ 
+## Tips
+* Paste component definitions into the [babel REPL](https://babeljs.io/repl/) to get code that runs in IE
+* Use helpers like `VCC.classes({y:1, n:0})` and `VCC.checked(obj.isActive)` to cleanup templated attribs
+* Create static components (no updates/DOM interaction) using `shouldComponentUpdate: Boolean.bind(null, false),`
+* Don't deeply nest complex components, use `VCC.Store` to flatten updates instead
+* Inside of VCC.Store reducers, returning nothing has the same effect as `return state;`
+* `VCC.Store`'s `.dispatch('SOMETYPE)` is the same as `.dispatch({type: 'SOMETYPE'})`
+* Inside of `on-event` handlers, `this` is the custom element and `event.target` raised the event
+* The `this` value in template expressions is the nearest overhead custom element component
+* `elm._renderer(true)` forces redraw and `elm._render()` triggers one (w/shouldComponentUpdate, debounce, etc)
+* Catch many keys like `switch(VCC.keys['_'+(e.which||e.keyCode)]){ case 'RETURN': case 'SPACE': return false; }`
+* Compare a single key with constants: `if(VCC.keys['ESCAPE']==(e.which||e.keyCode))`
+
+
+ 
 
 ## Demos
 
