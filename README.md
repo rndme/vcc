@@ -1,5 +1,5 @@
 # vcc
-View Component Creator : lightweight reactive view components
+View Component Creator : lightweight reactive web components
 
 ## What
 A react-inspired way of using web standards to create reusable semantic components. 
