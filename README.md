@@ -62,6 +62,10 @@ It's easy to convert demos from React to VCC by making a few simple syntax adjus
 * Compare a single key with constants: `if(VCC.keys['ESCAPE']==(e.which||e.keyCode))`
 
 
+## History
+VCC originally used HTML5's Custom Elements proposal, which was only implemented by default in Chrome. Though a polyfill allowed other browsers to operate, the polyfill didn't work nearly as well. It was thus decided to drop WebComponents as a dependency, and re-implement the same 4 life-cycle events from scratch. Not only does this provide better compatibility and consistency and break free from the un-settled document.registerElement() debacle, it reduces the project footprint by over 20%.
+
+
 ## Instructional Demos
  ( [adapted from a series of informative react demos](https://github.com/ruanyf/react-demos) ) by [ruanyf](https://github.com/ruanyf)
  
