@@ -59,7 +59,7 @@ function VCC(def) {
 	proto = Object.create(def.proto || HTMLElement.prototype);
 	proto.detachedCallback = def.componentWillUnmount || Boolean;
 	proto.attachedCallback = function(){
-	  
+		this._attached=true;
 	  [].forEach.call(this.querySelectorAll("[ref]"), function(elm){
 		  	var ref=elm.getAttribute("ref"),
 			ref2=eval("0||"+ref);
@@ -67,6 +67,7 @@ function VCC(def) {
 		}, this);
 	  
 		call(def.componentDidMount, this);
+		
 	};
 	proto.createdCallback = function _init(e) {
 		if(this.parentNode && this.parentNode._intraDirty) return;
@@ -104,12 +105,13 @@ function VCC(def) {
 		function renderer(blnNow) {
 		  	function _render() {
 			  	var temp = def.render.call(that)
-				if(renderer.oldView != temp ) VCC.intraHTML(that, renderer.oldView = temp);
-				call(def.componentDidUpdate, this, this.props, oldState);
+				if(renderer.oldView != temp )	VCC.intraHTML(that, renderer.oldView = temp);
+				if( that._attached) call(def.componentDidUpdate, that, that.props, oldState);
+				
 			}
 		  	if(blnNow === true) return _render();
 			clearTimeout(renderer.timer);
-			renderer.timer = setTimeout(_render, 50);
+			renderer.timer = setTimeout(_render, 25);
 		}
 
 		this.setState = function(state) {
