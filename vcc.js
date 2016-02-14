@@ -1,4 +1,3 @@
-	
 	 //vcc.js by dandavis. a simple View Component Creator.  [CCBY4]
 (function (root, factory) {
 	if (typeof define === 'function' && define.amd) {
@@ -111,7 +110,7 @@ function VCC(def) {
 		  	function _render() {
 			  	var temp = def.render.call(that);
 				if(renderer.oldView != temp ) VCC.intraHTML(that, renderer.oldView = temp);
-				call(def.componentDidUpdate, that, that.props, oldState);
+				if(!blnNow) call(def.componentDidUpdate, that, that.props, oldState);
 			}
 		  	if(blnNow === true) return _render();
 			clearTimeout(renderer.timer);
@@ -341,7 +340,6 @@ VCC.render= function render(html, elm){
   
   if(def && def.render )  node.innerHTML= def.render.call(node);
   
-  VCC.findAndInit();
   return elm.appendChild(node);
 };
   
@@ -361,8 +359,9 @@ VCC.render= function render(html, elm){
   
   };
   
+  VCC.findAndInit();
+  
    return VCC;
 
 }));	
-	
 	
