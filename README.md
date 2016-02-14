@@ -9,7 +9,7 @@ A react-inspired way of using web standards to create reusable semantic componen
 [React](https://github.com/facebook/react) has some great ideas, but needs [build tools](https://github.com/facebook/react/wiki/Complementary-Tools#build-tools) and a [large runtime](https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.min.js).
 
 ## How 
-[ES6 template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/template_strings) replace [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html), a [Virtual DOM](https://github.com/rndme/intraHTML) provides fast updates, and [HTML5 Custom Elements](https://www.w3.org/TR/custom-elements/) enables _real-life_ HTML tags.
+[ES6 template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/template_strings) replace [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html) and a [Virtual DOM](https://github.com/rndme/intraHTML) provides fast updates.
 
 ```javascript
 VCC({
@@ -33,7 +33,7 @@ VCC({
 * no `.statics` available on definition (not that useful anyway, since it's instantiated via HTML)
 * `displayName` on definition is REQUIRED to defines the tagName
 * no `ref` _String_ support, but does accept _Functions_ (which are recommended)
-* tag names must use a `vcc-` prefix and _no_ uppercase letters to conform with HTML5 Custom Elements
+* tag names MUST use a `vcc-` prefix and _no_ uppercase letters to conform with HTML5 Elements
 
 
 ## General Conversion Routine
@@ -42,12 +42,11 @@ It's easy to convert demos from React to VCC by making a few simple syntax adjus
 1. change the tag wrappers in `render()` return from ` ( ` and ` ) ` to <code>`</code> (both sides)
 1. add <code>`</code> "quotes" around JSX literals used in any methods, so as to create legit Strings
 1. change the JS delimiters from `{...}` to `${...}` so as to use native ES6 templating
-1. change custom tags from CamelCase to lowercase, then prefix `vcc-` to enable it as a custom element
+1. change custom tags from CamelCase to lowercase, then prefix `vcc-` to enable it as a valid HTML5 element
 1. change the CamelCase event attributes (like `onClick`) to lowercase with an `on-` prefix (like `on-click`)
 1. change `React.createClass` to `VCC` and add/modify the `displayName` property to custom tag name
 
-  
-  
+
  
 ## Tips
 * Paste component definitions into the [babel REPL](https://babeljs.io/repl/) to get code that runs in IE
@@ -62,8 +61,6 @@ It's easy to convert demos from React to VCC by making a few simple syntax adjus
 * Catch many keys like `switch(VCC.keys['_'+(e.which||e.keyCode)]){ case 'RETURN': case 'SPACE': return false; }`
 * Compare a single key with constants: `if(VCC.keys['ESCAPE']==(e.which||e.keyCode))`
 
-
- 
 
 ## Instructional Demos
  ( [adapted from a series of informative react demos](https://github.com/ruanyf/react-demos) ) by [ruanyf](https://github.com/ruanyf)
