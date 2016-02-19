@@ -90,9 +90,9 @@ function VCC(def) {
 				var elm = e.target,
 					cmd = elm.getAttribute("on-"+evt);
 				if(!cmd) return;
-			  	var fn=(fnCache[cmd] || (fnCache[cmd]=Function("event", "return " + cmd))).call(that,e);
+			  	var fn=(fnCache[cmd] || (fnCache[cmd]=Function("event", "var $0=event.target;return " + cmd))).call(that,e);
 			  	if(typeof fn==="function") setTimeout(fn.bind(that, e), 0);
-			}, false);
+			}, true);
 		}, this);
 
 		// bind all methods:
