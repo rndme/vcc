@@ -84,12 +84,24 @@ function VCC(def) {
 		  	this.props[attr.name]=val;
 		}, this);
 
+		var noBubbles=",focus,blur,select,keydown,keyup,mousedown,mouseup,submit,input,paste,";
+		
 		// bind any events to the actual tag:
 		EVENTS.forEach(function(evt) {
 			this.addEventListener(evt, function(e) {
+
 				var elm = e.target,
+				cmd = elm.getAttribute("on-"+evt),
+				blnDelegate = this._def._delegate && noBubbles.indexOf(","+e.type+",")===-1;
+				
+				while(blnDelegate && elm != this && elm){
 					cmd = elm.getAttribute("on-"+evt);
+					if(cmd) break;
+					elm=elm.parentNode;
+				}
+				
 				if(!cmd) return;
+				
 			  	var fn=(fnCache[cmd] || (fnCache[cmd]=Function("event", "var $0=event.target;return " + cmd))).call(that,e);
 			  	if(typeof fn==="function") setTimeout(fn.bind(that, e), 0);
 			}, true);
