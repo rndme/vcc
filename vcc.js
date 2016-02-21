@@ -72,6 +72,8 @@ function VCC(def) {
 	proto.createdCallback = function _init(e) {
 		if(this.parentNode && this.parentNode._intraDirty) return;
 		var that = this, oldState, oldProps;
+		assign(this, VCC.prototype); // implement inheritance  (since VCC is a function instead of object, it can't be auto)
+		this.VCC=VCC; // allow pure render functions when using utilities like VCC.classes(), VCC.show(), etc
 		this.state = assign({}, call(def.getInitialState, this) || {});
 		this._def = def;
 		this.props =  assign({}, call(def.getDefaultProps, this) || {});
