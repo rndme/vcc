@@ -8,7 +8,7 @@ It's essentially a light-weight API to create [custom elements](http://w3c.githu
 
 ## Why
 [React](https://github.com/facebook/react) has some great ideas, but needs [build tools](https://github.com/facebook/react/wiki/Complementary-Tools#build-tools) and a [large runtime](https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.min.js), and web components don't. <br />
-Web Components also use existing, standardized syntax like `<li class=item>` instead of `<li className=item>`, reduing the re-learning needed to use it. VCC is made of lifecycle events, a VDOM-based differ, and a few helpers; all your work is done in JS, with the  syntax, style, and libraries of your choice ride along as needed.
+Web Components also use existing, standardized syntax like `<li class=item>` instead of `<li className=item>`, reduing the re-learning needed to use it. VCC is made of lifecycle events, a VDOM-based differ, and a few helpers; all your work is done in JS, with the  syntax, style, and libraries of your choice riding along as needed.
 
 If you're not familiar with react or the VDOM concept, check it out. The main advantage is that you can write simple full-page templates like we did with PHP 10 years ago, but that those templates can update w/o UX side-effects as views are instantly merged with the user's screen. This keeps all the moving parts updated with simple logic instead of an untenable heap of DOM calls.
 
