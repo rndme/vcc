@@ -62,6 +62,17 @@ It's easy to convert demos from React to VCC by making a few simple syntax adjus
 * Catch many keys like `switch(VCC.keys['_'+(e.which||e.keyCode)]){ case 'RETURN': case 'SPACE': return false; }`
 * Compare a single key with constants: `if(VCC.keys['ESCAPE']==(e.which||e.keyCode))`
 
+## Caveats
+*So this all looks really neat, but what's the catch from not having a build step?*
+
+To run at max power `document.registerElement()` must be supported by the browser. The included polyfill is not perfect and has one important behavior difference compared to native support: the polyfill doesn't immediately (sync) populate the contents of nested components (child html mods made during `componentWillMount`). 
+
+This causes the VDOM's DIFF to compare un-initialized tags. While it still works because `props` will persist and the sub-components will self-init when they hit the DOM, it causes over-rendering compared to a browser with native web components support. Simple nested components like date formatters or pluralizers should run fast enough in all browsers, but don't wrap an extra container tag around a huge grid component. This is the main drawback and is an area of intense research to find a cure.
+
+TLDR; if you need to run something complex at top-speed in non-webkit, don't nest complex components. <br />
+You don't need to nest VCC components at all if you use VCC.store or something like [redux](https://github.com/reactjs/redux) or [CIA](https://github.com/rndme/cia) to talk between all the pieces of your app.
+
+
 
  
 
