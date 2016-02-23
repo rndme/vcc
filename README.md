@@ -3,10 +3,14 @@ View Component Creator : lightweight reactive web components <br />
 View the Unofficial [TodoMVC](http://todomvc.com/) [Todo Application Demo](http://danml.com/todo/) to kick the tires
 
 ## What
-A react-inspired way of using web standards to create reusable semantic components. 
+A react-inspired way of using web standards to create reusable semantic components. <br>
+It's essenetially a light-weight API to create [custom elements](http://w3c.github.io/webcomponents/spec/custom/) using syntax like [React](https://facebook.github.io/react/) instead of [polymer](https://www.polymer-project.org/1.0/) or [x-tags](http://x-tag.github.io/)
 
 ## Why
-[React](https://github.com/facebook/react) has some great ideas, but needs [build tools](https://github.com/facebook/react/wiki/Complementary-Tools#build-tools) and a [large runtime](https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.min.js).
+[React](https://github.com/facebook/react) has some great ideas, but needs [build tools](https://github.com/facebook/react/wiki/Complementary-Tools#build-tools) and a [large runtime](https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.min.js), and web components don't. <br />
+Web Components also use existing, standardized syntax like `<li class=item>` instead of `<li className=item>`, cutting down the amount re-learning needed to use it. VCC is just some lifecycle events, a VDOM-based differ, and a few helpers; all your work is done in the plain or flavored JS syntax/libraries of your choice.
+
+If you're not familiar with react or the VDOM concept, the main advantage is that you can write simple full-page templates like we did with PHP 10 years ago, but those templates can update w/o UX side-effects as view are instantly merged with the user's screen. This lets you keep all the moving parts update with logic instead of an untenable heap of DOM calls and IF statements.
 
 ## How 
 [ES6 template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/template_strings) replace [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html), a [Virtual DOM](https://github.com/rndme/intraHTML) provides fast updates, and [HTML5 Custom Elements](https://www.w3.org/TR/custom-elements/) enables _real-life_ HTML tags.
