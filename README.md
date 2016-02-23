@@ -4,7 +4,7 @@ View the Unofficial [TodoMVC](http://todomvc.com/) [Todo Application Demo](http:
 
 ## What
 A react-inspired way of using web standards to create reusable semantic components. <br>
-It's essenetially a light-weight API to create [custom elements](http://w3c.github.io/webcomponents/spec/custom/) using syntax like [React](https://facebook.github.io/react/) instead of [polymer](https://www.polymer-project.org/1.0/) or [x-tags](http://x-tag.github.io/)
+It's essentially a light-weight API to create [custom elements](http://w3c.github.io/webcomponents/spec/custom/) using syntax like [React](https://facebook.github.io/react/) instead of [polymer](https://www.polymer-project.org/1.0/) or [x-tags](http://x-tag.github.io/)
 
 ## Why
 [React](https://github.com/facebook/react) has some great ideas, but needs [build tools](https://github.com/facebook/react/wiki/Complementary-Tools#build-tools) and a [large runtime](https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.min.js), and web components don't. <br />
