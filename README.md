@@ -43,6 +43,8 @@ The web components lifecycle events provide enough unerpinning to provide custom
 
 
 ## Static Utilities
+Handy app and ES6 template helpers to reduce the boilerplate of pure JS logic
+
 `VCC.show(val)` - if not `==true`, then returns " hidden ", else returns an empty string <br>
 `VCC.checked(val)` - if `v` is `==true`, outputs ` checked ` else outputs and empty string <br>
 `VCC.attrs(obj)` - serializes an object into a string of HTML attributes <br>
