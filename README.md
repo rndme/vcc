@@ -24,6 +24,33 @@ VCC({
 <vcc-hello name="World"><h1>Hello World</h1></vcc-hello>
 ```
 
+## Life Cycle Events
+The web components lifecycle events provide enough unerpinning to provide customary event callbacks:
+
+| Web Component Event      | VCC Event(s)              | 
+|--------------------------|---------------------------| 
+| createdCallback          | componentWillMount        | 
+|                          | componentDidUpdate        | 
+|                          |                           | 
+| attachedCallback         | componentDidMount         | 
+|                          |                           | 
+| detachedCallback         | componentWillUnmount      | 
+|                          |                           | 
+| attributeChangedCallback | componentWillReceiveProps | 
+|                          | shouldComponentUpdate     | 
+|                          | componentWillUpdate       | 
+|                          | componentDidUpdate        | 
+
+
+## Static Utilities
+`VCC.show(val)` - if not `==true`, then returns " hidden ", else returns an empty string <br>
+`VCC.checked(val)` - if `v` is `==true`, outputs ` checked ` else outputs and empty string <br>
+`VCC.attrs(obj)` - serializes an object into a string of HTML attributes <br>
+`VCC.classes(obj)` - returns space-seperated list of object key names whose values `==true` <br>
+`VCC.data(elm, obj)` -  gets or sets one or more `data-` attribs as an object <br>
+`VCC.hasRoute(route, strIfFalse)` - uses `location.hash` to match a String or RegExp route name<br>
+
+
 ## Differences from React
 
 * no JSX, returns a string of HTML from `render()`
