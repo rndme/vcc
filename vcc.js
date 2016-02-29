@@ -141,15 +141,14 @@ function VCC(def) {
 		this.setState = function(state) {
 			if(def.shouldComponentUpdate) {
 				if(call(def.shouldComponentUpdate, this, this.props, state)) {
-				  	call(def.componentWillUpdate, this, this.props, state);
 					renderer();
 				}
 			} else {
-				call(def.componentWillUpdate, this, this.props, state);
 				renderer();
 			}
 		  	oldState = assign({}, that.state);
 			assign(that.state, state);
+			call(def.componentWillUpdate, this, this.props, state);			
 		};
 	  
 	  	this._renderer=	renderer;
