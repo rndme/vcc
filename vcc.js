@@ -265,6 +265,39 @@ function Store(reductions, state, pool) {
 	return ret;
 }; // end Store()
 
+// default plugins:
+VCC.LinkedStateMixin={
+  componentDidMount: function(){
+		var hits=[].slice.call(this.querySelectorAll("[link-state]"));
+		if(!hits.length) return;
+		hits.forEach(function(inp){
+			var prop=inp.getAttribute("link-state");
+		  	this["_handle_"+prop]=  function(value){
+			  	var ob={};
+			  	ob[prop]= value;
+				this.setState(ob);
+ 			};
+		  	inp.setAttribute("on-change", "this._handle_"+prop+"($0)");
+		  	inp.value=this.state[prop];
+		}, this);
+  }
+};
+
+VCC.shallowCompare = function shallowCompare(ob, p, s){
+	var p2=ob.props, s2=ob.state;
+	return Object.keys(p2).some(function(k, i){
+		return p2[k]!==p[k];
+	}) || Object.keys(s2).some(function(k, i){
+		return s2[k]!==s[k];
+	});
+};
+
+VCC.PureRenderMixin = {
+   shouldComponentUpdate: function(nextProps, nextState) {
+    return VCC.shallowCompare(this, nextProps, nextState);
+  }
+};
+
    return VCC;
 
 }));
