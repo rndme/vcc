@@ -50,7 +50,17 @@ function VCC(def) {
 
 	//allow "inheritance from array of mixins left to right:  
 	if(def.mixins) (Array.isArray(def.mixins) ? def.mixins : [def.mixins]).forEach(function(mixin) {
-		Object.keys(mixin).forEach(function(k){	def[k] = mixin[k]; });
+		Object.keys(mixin).forEach(function(k){	
+			var old = def[k];
+			if(typeof old==="function"){
+				def[k]= function(a){
+					mixin[k].call(this, a);
+					return old.call(this, a);
+				};
+			}else{
+				if(typeof old==="undefined") def[k]= mixin[k];
+			} 
+		});
 	});
 
 	//make render optional by subbin in Boolean if missing:
