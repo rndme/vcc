@@ -279,6 +279,15 @@ VCC.LinkedStateMixin={
 		  	inp.setAttribute("on-change", "this._handle_"+prop+"($0)");
 		  	inp.value=this.state[prop];
 		}, this);
+  },
+
+  componentWillUpdate: function(){
+		var hits=[].slice.call(this.querySelectorAll("[link-state]"));
+		if(!hits.length) return;
+		hits.forEach(function(inp){
+			var prop=inp.getAttribute("link-state");
+		  	inp.value=this.state[prop];
+		}, this);
   }
 };
 
