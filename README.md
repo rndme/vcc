@@ -106,7 +106,16 @@ TLDR; if you need to run something complex at top-speed in non-webkit, don't nes
 You don't need to nest VCC components at all if you use VCC.store or something like [redux](https://github.com/reactjs/redux) or [CIA](https://github.com/rndme/cia) to talk between all the pieces of your app.
 
 
+## Add-Ons
+VCC currently ships with 3 common addons: 
 
+1. `VCC.PureRenderMixin`: defines shouldComponentUpdate() with a shallow compare on the state and props
+2. `VCC.shallowCompare(this, newProps, newState) `: checks shallow equality on props/nextProps and state/nextState
+3. `VCC.LinkedStateMixin`: Declaritvely 2-way binds `<input link-state=myprop  />` value changes to component state
+
+ 
+ 
+ 
  
 
 ## Instructional Demos
