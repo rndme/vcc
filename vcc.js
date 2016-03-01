@@ -153,10 +153,9 @@ function VCC(def) {
 	  
 	  	this._renderer=	renderer;
 		this._render= this.setState.bind(this, {});
-
 		call(def.componentWillMount, this, def);
 	  	renderer(true);
-
+		if(typeof def.renderTrigger === "function") def.renderTrigger(this._renderer.bind(this));
 	}; //end create callBack
 
 
