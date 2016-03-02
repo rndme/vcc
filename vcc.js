@@ -88,6 +88,14 @@ function VCC(def) {
 		this._def = def;
 		this.props =  assign({}, (typeof def.getDefaultProps === "object" ? def.getDefaultProps : call(def.getDefaultProps, this)) || {});
 	  	
+	  	
+		//allow "inheritance from array of mixouts left to right:  
+		if(def.mixouts) (Array.isArray(def.mixouts) ? def.mixouts : [def.mixouts]).forEach(function(mixout) {
+			Object.keys(mixout).forEach(function(k){	
+				that[k]= mixout[k];
+			});
+		}); // mixins apply to def, mixouts apply to elm isntance itself
+
 	  	[].forEach.call(this.attributes, function(attr, index){
 		  	if(EVENTS.indexOf(attr.name.replace(/^on\-/,""))!==-1) return;
 			//console.log("attr", this, attr, attr.name, attr.value);
