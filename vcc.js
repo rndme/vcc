@@ -128,7 +128,7 @@ function VCC(def) {
 	  
 		function renderer(blnNow) {
 		  	function _render() {
-			  	var temp = def.render.call(that)
+			  	var temp = def.render.call(that, VCC);
 				if(renderer.oldView != temp )	VCC.intraHTML(that, renderer.oldView = temp);
 				if( that._attached) call(def.componentDidUpdate, that, that.props, oldState);
 				
