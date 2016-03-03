@@ -22,22 +22,22 @@ These properties control almost eveything about the component using a literal-fr
 |-------:|-------|
 |`_delegate`|event delegation option: enabled via `true` |
 |`_spawn`|return from the component's `document.registerElement()` call |
-|`componentDidMount`|After initial `.render()`, now in DOM and populated |
-|`componentDidUpdate(prevProps={}, prevState={})`|new props/state, good for DOM |
+|`componentDidMount()`|After initial `.render()`, now in DOM and populated |
+|`componentDidUpdate (prevProps={}, prevState={})`|new props/state, good for DOM |
 |`componentWillMount`|Before `.render()` (no DOM children) |
-|`componentWillReceiveProps(newProps={})`|Good for setState() |
+|`componentWillReceiveProps (newProps={})`|Good for setState() |
 |`componentWillUnmount()`|Invoked upoon DOM node removal |
-|`componentWillUpdate(newProps={}, newState={})`|about to render, too late for `.setState()` |
+|`componentWillUpdate (newProps={}, newState={})`|about to render, too late for `.setState()` |
 |`displayName`| **REQUIRED** - the tagName of the custom element |
-|`getDefaultProps`|an object or object-returning function of the initial properties of the component (attribs) |
-|`getInitialState`|an object or object-returning function of the default state configuration (internal)  |
+|`getDefaultProps()`|an object or object-returning function of the initial properties of the component (attribs) |
+|`getInitialState()`|an object or object-returning function of the default state configuration (internal)  |
 |`mixins`| Object or Array of Objects used to modify the component definition |
 |`mixouts`|Object or Array of Objects used to modify the component's _instance_ properties |
 |`propTypes`|an object of methods used to coerce or validate matching-name `props` |
 |`proto`|used to modify the Custom Element's prototype, default is `HTMLElement.prototype` |
-|`render`|a string-returning methods that defines the current HTML contents of the component.  |
+|`render()`|a string-returning methods that defines the current HTML contents of the component.  |
 |`renderTrigger`|a shortcut to bind to something like redux or CIA's `.subscribe` method, eg. `renderTrigger:store.subscribe,` will re-render each time the store updates |
-|`shouldComponentUpdate(newProps={}, newState={})`| Skip `.render()` by returning `false` |
+|`shouldComponentUpdate (newProps={}, newState={})`| Skip `.render()` by returning `false` |
 
 
 
