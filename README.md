@@ -22,13 +22,13 @@ These properties control almost eveything about the component using a literal-fr
 |`componentWillUnmount()`|Function|_Event_: Invoked upoon DOM node removal |
 |`componentWillUpdate (newProps, newState)`|Function|_Event_: about to render, too late for `.setState()` |
 |`displayName`|String| **REQUIRED** - the tagName of the custom element (without the `vcc-` prefix) |
-|`getDefaultProps()`|Function|an object or object-returning function of the initial properties of the component (attribs) |
-|`getInitialState()`|Function|an object or object-returning function of the default state configuration (internal)  |
+|`getDefaultProps()`|Function|object or object-returning function of initial properties (attribs) |
+|`getInitialState()`|Function|object or object-returning function of default state config (internal)  |
 |`mixins`|Object| Object or Array of Objects used to extend the component definition |
 |`mixouts`|Object|Object or Array of Objects used to extend the component's _instance_ properties |
 |`propTypes`|Object|an object of methods used to coerce or validate matching-name `props` |
 |`proto`|Object|used to modify the Custom Element's prototype, default is `HTMLElement.prototype` |
-|`render()`|Function| **RECOMMENDED** - a string-returning method that defines the current HTML contents of the component.  |
+|`render()`|Function| **RECOMMENDED** - string-returning method that defines component's .innerHTML |
 |`renderTrigger`|Function|a shortcut to bind to something like redux or CIA's `.subscribe` method, eg. `renderTrigger:store.subscribe,` will re-render each time the store updates |
 |`shouldComponentUpdate (newProps, newState)`|Function| Skip `.render()` by returning `false` |
 
