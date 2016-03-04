@@ -6,12 +6,6 @@ View the Unofficial [TodoMVC](http://todomvc.com/) [Todo Application Demo](http:
 A react-inspired way of using web standards to create reusable semantic components. <br>
 It's essentially a light-weight API to create [custom elements](http://w3c.github.io/webcomponents/spec/custom/) using syntax like [React](https://facebook.github.io/react/) instead of [polymer](https://www.polymer-project.org/1.0/) or [x-tags](http://x-tag.github.io/)
 
-## Why
-[React](https://github.com/facebook/react) has some great ideas, but needs [build tools](https://github.com/facebook/react/wiki/Complementary-Tools#build-tools) and a [large runtime](https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.min.js), and web components don't. <br />
-Web Components also use existing, standardized syntax like `<li class=item>` instead of `<li className=item>`, reduing the re-learning needed to use it. VCC is made of lifecycle events, a VDOM-based differ, and a few helpers; all your work is done in JS, with the  syntax, style, and libraries of your choice riding along as needed.
-
-If you're not familiar with react or the VDOM concept, check it out. The main advantage is that you can write simple full-page templates like we did with PHP 10 years ago, but that those templates can update w/o UX side-effects as views are instantly merged with the user's screen. This keeps all the moving parts updated with simple logic instead of an untenable heap of DOM calls.
-
 ## How 
 Define custom web components using an intuitive declaration object with pre-defiend properties to configure lifecycle events, state management, and contents. [ES6 template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/template_strings) replace [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html), a [Virtual DOM](https://github.com/rndme/intraHTML) provides fast updates, and [HTML5 Custom Elements](https://www.w3.org/TR/custom-elements/) enables _real-life_ HTML tags. This combination delivers custom element components using a slim but powerful delarative API.
 
@@ -59,8 +53,19 @@ VCC({
 <vcc-hello name="World"><h1>Hello World</h1></vcc-hello>
 ```
 
+
+## Add-Ons
+VCC currently ships with 3 common addons statically defined: 
+
+1. `VCC.PureRenderMixin`: defines shouldComponentUpdate() with a shallow compare on the state and props
+2. `VCC.shallowCompare(this, newProps, newState) `: checks shallow equality on props/nextProps and state/nextState
+3. `VCC.LinkedStateMixin`: Declaritvely 2-way binds `<input link-state=myprop  />` value changes to component state
+
+ 
+ 
+ 
 ## Life Cycle Events
-The web components lifecycle events provide enough unerpinning to provide customary event callbacks:
+Web component events provide enough unerpinning to provide customary component lifecycle events:
 
 | Web Component Event      | VCC Event(s)              | 
 |--------------------------|---------------------------| 
@@ -88,6 +93,32 @@ Handy app and ES6 template helpers to reduce the boilerplate of pure JS logic
 `VCC.hasRoute(route, strIfFalse)` - uses `location.hash` to match a String or RegExp route name<br>
 
 
+## Tips and Tricks
+* Paste component definitions into the [babel REPL](https://babeljs.io/repl/) to get code that runs in IE
+* Use helpers like `VCC.classes({y:1, n:0})` and `VCC.checked(obj.isActive)` to cleanup templated attribs
+* Create static components (no updates/DOM interaction) using `shouldComponentUpdate: Boolean.bind(null, false),`
+* Don't deeply nest complex components, use `VCC.Store` to flatten updates instead
+* Inside of VCC.Store reducers, returning nothing has the same effect as `return state;`
+* `VCC.Store`'s `.dispatch('SOMETYPE)` is the same as `.dispatch({type: 'SOMETYPE'})`
+* Inside of `on-event` handlers, `this` is the custom element and `event.target` raised the event
+* The `this` value in template expressions is the nearest overhead custom element component
+* `elm._renderer(true)` forces redraw and `elm._render()` triggers one (w/shouldComponentUpdate, debounce, etc)
+* Catch many keycodes like `switch(VCC.keys['_'+(e.which||e.keyCode)]){ case 'RETURN': case 'SPACE': return false; }`
+* Compare a single keycode with constants: `if(VCC.keys['ESCAPE']==(e.which||e.keyCode))`
+* `VCC` is passed to render to allow pure use (DI) of the [Static Utilities](static-utilities): `render: function(VCC)`
+* The [Static Utilities](static-utilities) can be reached inside of render as `this.VCC`
+* All `mixouts` can be reached inside of render and events as `this._name_`: `mixouts:{double:x=>x*x},` ... `${this.double(this.state.cost)}`
+ 
+
+
+
+## Why
+[React](https://github.com/facebook/react) has some great ideas, but needs [build tools](https://github.com/facebook/react/wiki/Complementary-Tools#build-tools) and a [large runtime](https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.min.js), and web components don't. <br />
+Web Components also use existing, standardized syntax like `<li class=item>` instead of `<li className=item>`, reduing the re-learning needed to use it. VCC is made of lifecycle events, a VDOM-based differ, and a few helpers; all your work is done in JS, with the  syntax, style, and libraries of your choice riding along as needed.
+
+If you're not familiar with react or the VDOM concept, check it out. The main advantage is that you can write simple full-page templates like we did with PHP 10 years ago, but that those templates can update w/o UX side-effects as views are instantly merged with the user's screen. This keeps all the moving parts updated with simple logic instead of an untenable heap of DOM calls.
+
+
 ## Differences from React
 
 * no JSX, returns a string of HTML from `render()`
@@ -111,21 +142,6 @@ It's easy to convert demos from React to VCC by making a few simple syntax adjus
 1. change `React.createClass` to `VCC` and add/modify the `displayName` property to custom tag name
 
   
-  
- 
-## Tips
-* Paste component definitions into the [babel REPL](https://babeljs.io/repl/) to get code that runs in IE
-* Use helpers like `VCC.classes({y:1, n:0})` and `VCC.checked(obj.isActive)` to cleanup templated attribs
-* Create static components (no updates/DOM interaction) using `shouldComponentUpdate: Boolean.bind(null, false),`
-* Don't deeply nest complex components, use `VCC.Store` to flatten updates instead
-* Inside of VCC.Store reducers, returning nothing has the same effect as `return state;`
-* `VCC.Store`'s `.dispatch('SOMETYPE)` is the same as `.dispatch({type: 'SOMETYPE'})`
-* Inside of `on-event` handlers, `this` is the custom element and `event.target` raised the event
-* The `this` value in template expressions is the nearest overhead custom element component
-* `elm._renderer(true)` forces redraw and `elm._render()` triggers one (w/shouldComponentUpdate, debounce, etc)
-* Catch many keys like `switch(VCC.keys['_'+(e.which||e.keyCode)]){ case 'RETURN': case 'SPACE': return false; }`
-* Compare a single key with constants: `if(VCC.keys['ESCAPE']==(e.which||e.keyCode))`
-
 ## Caveats
 *So this all looks really neat, but what's the catch from not having a build step?*
 
@@ -137,15 +153,6 @@ TLDR; if you need to run something complex at top-speed in non-webkit, don't nes
 You don't need to nest VCC components at all if you use VCC.store or something like [redux](https://github.com/reactjs/redux) or [CIA](https://github.com/rndme/cia) to talk between all the pieces of your app.
 
 
-## Add-Ons
-VCC currently ships with 3 common addons: 
-
-1. `VCC.PureRenderMixin`: defines shouldComponentUpdate() with a shallow compare on the state and props
-2. `VCC.shallowCompare(this, newProps, newState) `: checks shallow equality on props/nextProps and state/nextState
-3. `VCC.LinkedStateMixin`: Declaritvely 2-way binds `<input link-state=myprop  />` value changes to component state
-
- 
- 
  
  
 
