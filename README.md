@@ -49,23 +49,23 @@ VCC({
 
 
 ## Add-Ons
-VCC currently ships with 3 common addons statically defined: 
+VCC currently ships with a few common addons statically defined: 
 
-1. `VCC.PureRenderMixin`: defines shouldComponentUpdate() with a shallow compare on the state and props
-2. `VCC.shallowCompare(this, newProps, newState) `: checks shallow equality on props/nextProps and state/nextState
-3. `VCC.LinkedStateMixin`: Declaritvely 2-way binds value changes to component state `<input link-state=myprop  />` 
+* `VCC.PureRenderMixin`: defines shouldComponentUpdate() with a shallow compare on the state and props
+* `VCC.shallowCompare(this, newProps, newState) `: checks shallow equality on props/nextProps and state/nextState
+* `VCC.LinkedStateMixin`: Declaritvely 2-way binds value changes to component state `<input link-state=myprop  />` 
 
 
 
 ## Static Utilities
 Handy app and ES6 template helpers to reduce the boilerplate of pure JS logic
 
-`VCC.show(val)` - if not `==true`, then returns " hidden ", else returns an empty string <br>
-`VCC.checked(val)` - if `v` is `==true`, outputs ` checked ` else outputs and empty string <br>
-`VCC.attrs(obj)` - serializes an object into a string of HTML attributes <br>
-`VCC.classes(obj)` - returns space-seperated list of object key names whose values `==true` <br>
-`VCC.data(elm, obj)` -  gets or sets one or more `data-` attribs as an object <br>
-`VCC.hasRoute(route, strIfFalse)` - uses `location.hash` to match a String or RegExp route name<br>
+* `VCC.show(val)` - if not `==true`, then returns " hidden ", else returns an empty string <br>
+* `VCC.checked(val)` - if `v` is `==true`, outputs ` checked ` else outputs and empty string <br>
+* `VCC.attrs(obj)` - serializes an object into a string of HTML attributes <br>
+* `VCC.classes(obj)` - returns space-seperated list of object key names whose values `==true` <br>
+* `VCC.data(elm, obj)` -  gets or sets one or more `data-` attribs as an object <br>
+* `VCC.hasRoute(route, strIfFalse)` - uses `location.hash` to match a String or RegExp route name<br>
 
 
 ## Tips and Tricks
@@ -110,12 +110,12 @@ If you're not familiar with react or the VDOM concept, check it out. The main ad
 ## General Conversion Routine
 It's easy to convert demos from React to VCC by making a few simple syntax adjustments to bring JSX in line with HTML5.
 
-1. change the tag wrappers in `render()` return from ` ( ` and ` ) ` to <code>`</code> (both sides)
-1. add <code>`</code> "quotes" around JSX literals used in any methods, so as to create legit Strings
-1. change the JS delimiters from `{...}` to `${...}` so as to use native ES6 templating
-1. change custom tags from CamelCase to lowercase, then prefix `vcc-` to enable it as a custom element
-1. change the CamelCase event attributes (like `onClick`) to lowercase with an `on-` prefix (like `on-click`)
-1. change `React.createClass` to `VCC` and add/modify the `displayName` property to custom tag name
+* change the tag wrappers in `render()` return from ` ( ` and ` ) ` to <code>`</code> (both sides)
+* add <code>`</code> "quotes" around JSX literals used in any methods, so as to create legit Strings
+* change the JS delimiters from `{...}` to `${...}` so as to use native ES6 templating
+* change custom tags from CamelCase to lowercase, then prefix `vcc-` to enable it as a custom element
+* change the CamelCase event attributes (like `onClick`) to lowercase with an `on-` prefix (like `on-click`)
+* change `React.createClass` to `VCC` and add/modify the `displayName` property to custom tag name
 
 
  
