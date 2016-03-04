@@ -27,8 +27,8 @@ These properties control almost eveything about the component using a literal-fr
 |`mixins`|Object| Object or Array of Objects used to extend the component definition |
 |`mixouts`|Object|Object or Array of Objects used to extend the component's _instance_ properties |
 |`propTypes`|Object|an object of methods used to coerce or validate matching-name `props` |
-|`proto`|Object|used to modify the Custom Element's prototype, default is `HTMLElement.prototype` |
-|`render()`|Function| **RECOMMENDED** - string-returning method that defines component's .innerHTML |
+|`proto`|Object|Specifies Custom Element prototype, defaults to `HTMLElement.prototype` |
+|`render()`|Function| string-returning method that defines component's .innerHTML |
 |`renderTrigger`|Function|a shortcut to bind to something like redux or CIA's `.subscribe` method, eg. `renderTrigger:store.subscribe,` will re-render each time the store updates |
 |`shouldComponentUpdate (newProps, newState)`|Function| Skip `.render()` by returning `false` |
 
