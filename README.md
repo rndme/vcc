@@ -20,19 +20,18 @@ These properties control almost eveything about the component using a literal-fr
 
 |Property|Type|Description |
 |-------:|:------:|-----|
-|`_delegate`|Boolean|event delegation option: enabled via `true` |
-|`_spawn`|Object|return from the component's `document.registerElement()` call |
-|`componentDidMount()`|Function|Event: After initial `.render()`, now in DOM and populated |
-|`componentDidUpdate (prevProps, prevState)`|Function|Event: new props/state, good for DOM |
-|`componentWillMount`|Function|Event: Before `.render()` (no DOM children) |
-|`componentWillReceiveProps (newProps)`|Function|Event: Good for setState() |
-|`componentWillUnmount()`|Function|Event: Invoked upoon DOM node removal |
-|`componentWillUpdate (newProps, newState)`|Function|Event: about to render, too late for `.setState()` |
-|`displayName`|String| **REQUIRED** - the tagName of the custom element |
+|`_delegate`|Boolean|event delegation option: eg. `<ul on-click=...` to catch `<li>` clicks |
+|`componentDidMount()`|Function|_Event_: After initial `.render()`, now in DOM and populated |
+|`componentDidUpdate (prevProps, prevState)`|Function|_Event_: new props/state, good for DOM |
+|`componentWillMount`|Function|_Event_: Before `.render()` (no DOM children) |
+|`componentWillReceiveProps (newProps)`|Function|_Event_: Good for setState() |
+|`componentWillUnmount()`|Function|_Event_: Invoked upoon DOM node removal |
+|`componentWillUpdate (newProps, newState)`|Function|_Event_: about to render, too late for `.setState()` |
+|`displayName`|String| **REQUIRED** - the tagName of the custom element (without the `vcc-` prefix) |
 |`getDefaultProps()`|Function|an object or object-returning function of the initial properties of the component (attribs) |
 |`getInitialState()`|Function|an object or object-returning function of the default state configuration (internal)  |
-|`mixins`|Object| Object or Array of Objects used to modify the component definition |
-|`mixouts`|Object|Object or Array of Objects used to modify the component's _instance_ properties |
+|`mixins`|Object| Object or Array of Objects used to extend the component definition |
+|`mixouts`|Object|Object or Array of Objects used to extend the component's _instance_ properties |
 |`propTypes`|Object|an object of methods used to coerce or validate matching-name `props` |
 |`proto`|Object|used to modify the Custom Element's prototype, default is `HTMLElement.prototype` |
 |`render()`|Function|a string-returning methods that defines the current HTML contents of the component.  |
