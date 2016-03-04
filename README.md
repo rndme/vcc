@@ -28,7 +28,7 @@ These properties control almost eveything about the component using a literal-fr
 |`mixouts`|Object|Object or Array of Objects used to extend the component's _instance_ properties |
 |`propTypes`|Object|an object of methods used to coerce or validate matching-name `props` |
 |`proto`|Object|used to modify the Custom Element's prototype, default is `HTMLElement.prototype` |
-|`render()`|Function|a string-returning methods that defines the current HTML contents of the component.  |
+|`render()`|Function| **RECOMMENDED** - a string-returning method that defines the current HTML contents of the component.  |
 |`renderTrigger`|Function|a shortcut to bind to something like redux or CIA's `.subscribe` method, eg. `renderTrigger:store.subscribe,` will re-render each time the store updates |
 |`shouldComponentUpdate (newProps, newState)`|Function| Skip `.render()` by returning `false` |
 
@@ -53,7 +53,7 @@ VCC currently ships with 3 common addons statically defined:
 
 1. `VCC.PureRenderMixin`: defines shouldComponentUpdate() with a shallow compare on the state and props
 2. `VCC.shallowCompare(this, newProps, newState) `: checks shallow equality on props/nextProps and state/nextState
-3. `VCC.LinkedStateMixin`: Declaritvely 2-way binds `<input link-state=myprop  />` value changes to component state
+3. `VCC.LinkedStateMixin`: Declaritvely 2-way binds value changes to component state `<input link-state=myprop  />` 
 
 
 
