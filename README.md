@@ -33,12 +33,6 @@ These properties control almost eveything about the component using a literal-fr
 |`shouldComponentUpdate (newProps, newState)`|Function| Skip `.render()` by returning `false` |
 
 
-
-
-
-
-
-
 ### Hello World Example
 ```javascript
 VCC({
@@ -61,25 +55,6 @@ VCC currently ships with 3 common addons statically defined:
 2. `VCC.shallowCompare(this, newProps, newState) `: checks shallow equality on props/nextProps and state/nextState
 3. `VCC.LinkedStateMixin`: Declaritvely 2-way binds `<input link-state=myprop  />` value changes to component state
 
- 
- 
- 
-## Life Cycle Events
-Web component events provide enough unerpinning to provide customary component lifecycle events:
-
-| Web Component Event      | VCC Event(s)              | 
-|--------------------------|---------------------------| 
-| createdCallback          | componentWillMount        | 
-|                          | componentDidUpdate        | 
-|                          |                           | 
-| attachedCallback         | componentDidMount         | 
-|                          |                           | 
-| detachedCallback         | componentWillUnmount      | 
-|                          |                           | 
-| attributeChangedCallback | componentWillReceiveProps | 
-|                          | shouldComponentUpdate     | 
-|                          | componentWillUpdate       | 
-|                          | componentDidUpdate        | 
 
 
 ## Static Utilities
@@ -108,6 +83,7 @@ Handy app and ES6 template helpers to reduce the boilerplate of pure JS logic
 * `VCC` is passed to render to allow pure use (DI) of the [Static Utilities](static-utilities): `render: function(VCC)`
 * The [Static Utilities](static-utilities) can be reached inside of render as `this.VCC`
 * All `mixouts` can be reached inside of render and events as `this._name_`: `mixouts:{double:x=>x*x},` ... `${this.double(this.state.cost)}`
+* You _can_ use objects instead of functions with `getInitialState:{a:1},` and `getDefaultProps:{b:2},`
  
 
 
@@ -140,6 +116,25 @@ It's easy to convert demos from React to VCC by making a few simple syntax adjus
 1. change custom tags from CamelCase to lowercase, then prefix `vcc-` to enable it as a custom element
 1. change the CamelCase event attributes (like `onClick`) to lowercase with an `on-` prefix (like `on-click`)
 1. change `React.createClass` to `VCC` and add/modify the `displayName` property to custom tag name
+
+
+ 
+## W3 to React Life Cycle Events
+Web component events provide enough unerpinning to provide customary component lifecycle events:
+
+| Web Component Event      | VCC Event(s)              | 
+|--------------------------|---------------------------| 
+| createdCallback          | componentWillMount        | 
+|                          | componentDidUpdate        | 
+|                          |                           | 
+| attachedCallback         | componentDidMount         | 
+|                          |                           | 
+| detachedCallback         | componentWillUnmount      | 
+|                          |                           | 
+| attributeChangedCallback | componentWillReceiveProps | 
+|                          | shouldComponentUpdate     | 
+|                          | componentWillUpdate       | 
+|                          | componentDidUpdate        | 
 
   
 ## Caveats
