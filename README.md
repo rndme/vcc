@@ -78,7 +78,7 @@ Handy app and ES6 template helpers to reduce the boilerplate of pure JS logic
 * Inside of `on-event` handlers, `this` is the custom element and `event.target` raised the event
 * The `this` value in template expressions is the nearest overhead custom element component
 * `elm._renderer(true)` forces redraw and `elm._render()` triggers one (w/shouldComponentUpdate, debounce, etc)
-* Catch many keycodes like `switch(VCC.keys['_'+(e.which||e.keyCode)]){ case 'RETURN': case 'SPACE': return false; }`
+* Catch many keycodes: `switch(VCC.keys['_'+(e.which||e.keyCode)]){case 'RETURN':case 'SPACE': return false;}`
 * Compare a single keycode with constants: `if(VCC.keys['ESCAPE']==(e.which||e.keyCode))`
 * `VCC` is passed to render to allow pure use (DI) of the [Static Utilities](static-utilities): `render: function(VCC)`
 * The [Static Utilities](static-utilities) can be reached inside of render as `this.VCC`
