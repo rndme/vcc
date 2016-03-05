@@ -50,8 +50,8 @@ function VCC(def) {
 	VCC[tagName] = def; // add this def to the collective
 
 	//allow "inheritance from array of mixins left to right:  
-	if(def.mixins) (Array.isArray(def.mixins) ? def.mixins : [def.mixins]).forEach(function(mixin) {
-		Object.keys(mixin).forEach(function(k){	
+	if(def.mixins) forEach( (Array.isArray(def.mixins) ? def.mixins : [def.mixins]), function(mixin) {
+		forEach(Object.keys(mixin), function(k){	
 			var old = def[k];
 			if(typeof old==="function"){
 				def[k]= function(a){
@@ -91,8 +91,8 @@ function VCC(def) {
 	  	
 	  	
 		//allow "inheritance from array of mixouts left to right:  
-		if(def.mixouts) (Array.isArray(def.mixouts) ? def.mixouts : [def.mixouts]).forEach(function(mixout) {
-			Object.keys(mixout).forEach(function(k){	
+		if(def.mixouts) forEach(Array.isArray(def.mixouts) ? def.mixouts : [def.mixouts], function(mixout) {
+			forEach(Object.keys(mixout), function(k){	
 				that[k]= mixout[k];
 			});
 		}); // mixins apply to def, mixouts apply to elm isntance itself
@@ -138,7 +138,7 @@ function VCC(def) {
 		function renderer(blnNow) {
 		  	function _render() {
 			  	var temp = def.render.call(that, VCC);
-			  	Object.keys(VCC.statics).forEach(function(k){
+			  	forEach(Object.keys(VCC.statics), function(k){
 					temp = VCC.statics[k](temp);
 				});
 				if(renderer.oldView != temp )	VCC.intraHTML(that, renderer.oldView = temp);
@@ -212,8 +212,8 @@ function VCCstatic(def) {
 
 	// setup mixins:
 	if (typeof def.mixins === "object") {
-		(Array.isArray(def.mixins) ? def.mixins : [def.mixins]).forEach(function(mixin) {
-			Object.keys(mixin).forEach(function(k) {
+		forEach(Array.isArray(def.mixins) ? def.mixins : [def.mixins], function(mixin) {
+			forEach(Object.keys(mixin), function(k) {
 				def[k] = mixin[k];
 			}); //end forEach
 		}); //end forEach
@@ -295,10 +295,11 @@ VCC.data = function _(elm, obj) {
 VCC.statics={};
 
 VCC.keys={};
-( 
+
+forEach(( 
  "||||||||BACK_SPACE|TAB|||CLEAR|RETURN|ENTER||SHIFT|CONTROL|ALT|PAUSE|CAPS_LOCK|||||||ESCAPE|CONVERT|NONCONVERT|ACCEPT|MODECHANGE|SPACE|PAGE_UP|PAGE_DOWN|END|HOME|LEFT|UP|RIGHT|DOWN|SELECT|PRINT||PRINTSCREEN|INSERT|DELETE||0|1|2|3|4|5|6|7|8|9|COLON|SEMICOLON|LESS_THAN|EQUALS|GREATER_THAN|QUESTION_MARK|AT|A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z|WIN||CONTEXT_MENU||SLEEP|0|1|2|3|4|5|6|7|8|9|MULTIPLY|ADD|SEPARATOR|SUBTRACT|DECIMAL|"+
  "DIVIDE|F1|F2|F3|F4|F5|F6|F7|F8|F9|F10|F11|F12|F13|F14|F15|F16|F17|F18|F19|F20|F21|F22|F23|F24|||||||||NUM_LOCK|SCROLL_LOCK|||||||||||||||CIRCUMFLEX|EXCLAMATION|DOUBLE_QUOTE|HASH|DOLLAR|PERCENT|AMPERSAND|UNDERSCORE|OPEN_PAREN|CLOSE_PAREN|ASTERISK|PLUS|PIPE|HYPHEN_MINUS|OPEN_CURLY_BRACKET|CLOSE_CURLY_BRACKET|TILDE|||||VOLUME_MUTE|VOLUME_DOWN|VOLUME_UP|||||COMMA||PERIOD|SLASH|BACK_QUOTE|||||||||||||||||||||||||||OPEN_BRACKET|BACK_SLASH|CLOSE_BRACKET|QUOTE||META|ALTGR"
-).split("|").forEach(function(a,i){VCC.keys["DOM_VK_"+a]=VCC.keys[a]=i;VCC.keys["_"+i]=a;});
+).split("|"), function(a,i){VCC.keys["DOM_VK_"+a]=VCC.keys[a]=i;VCC.keys["_"+i]=a;});
 
 // Tiny evented state store inspired by https://github.com/rackt/redux/blob/master/src/createStore.js
 // changes: uses an object of methods instead of switch(e.type), no error checking, can pass a string action name ("TEST") instead of ({type:"TEST"})
@@ -378,6 +379,12 @@ VCC.PureRenderMixin = {
     return VCC.shallowCompare(this, nextProps, nextState);
   }
 };
+
+
+//util for perf:
+	function forEach(r,f){var m=r.length, i=0;for(; i<m; i++)f(r[i],i,r);};
+
+
 
    return VCC;
 
