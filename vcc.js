@@ -36,6 +36,7 @@ function VCC(def) {
 	// guard input object and displayName property:
 	if(typeof def !== "object") throw new TypeError("VCC Expects a definition object");
 	if(typeof def.displayName !== "string") throw new TypeError("VCC Definition needs a String displayName property");
+	if(def._static===true) return VCCstatic(def); // use slimmer micro core for statics, good for simple sub-components
   	function call(fn, that, a, b){
 		if(!fn || typeof fn !== "function") return; 
 	  	return arguments.length===4 ? fn.call(that, a, b) : fn.call(that, a);
@@ -137,6 +138,9 @@ function VCC(def) {
 		function renderer(blnNow) {
 		  	function _render() {
 			  	var temp = def.render.call(that, VCC);
+			  	Object.keys(VCC.statics).forEach(function(k){
+					temp = VCC.statics[k](temp);
+				});
 				if(renderer.oldView != temp )	VCC.intraHTML(that, renderer.oldView = temp);
 				if( that._attached) call(def.componentDidUpdate, that, that.props, oldState);
 				
@@ -190,6 +194,66 @@ function VCC(def) {
 	return proto._spawn = def._spawn = document.registerElement(tagName, {prototype: proto});
 }; //end VCC()
   
+  
+// returns a function that transforms a string, turning inline bare tags into a innerHTML-populated form  
+function VCCstatic(def) { 
+
+	function build(o, k, val) {
+		if (typeof o[k] === "object") o[k] = Object.bind(this, o[k]);
+		o[k] = o[k] || Object.bind(this, val);
+	}
+
+	build(def, "getInitialState", {});
+	build(def, "getDefaultProps", {});
+  
+	function htmlDecode(input) {
+		return input.indexOf("&") === -1 ? input : input.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+	}
+
+	// setup mixins:
+	if (typeof def.mixins === "object") {
+		(Array.isArray(def.mixins) ? def.mixins : [def.mixins]).forEach(function(mixin) {
+			Object.keys(mixin).forEach(function(k) {
+				def[k] = mixin[k];
+			}); //end forEach
+		}); //end forEach
+	} //end if mixins?
+
+	var tagRx = RegExp("<vcc-" + def.displayName + "(\s?[^>]+\s?)?>([\\w\\W]+?)?<\/vcc-" + def.displayName + ">", "ig"),
+		rxs = [/([\w\-]+)="([^"]*)"/g, /([\w\-]+)='([^']*)'/g, /([\w\-]+)=([^\s>\/]+)/g, /([\w\-]+)()/g];
+	function fnReppr(j, k, v, x, y) {
+		v = htmlDecode(v);
+		this[k] = v === '0' ? 0 : (+v || v || true); //may have to de-encode (html) this value since its never been parsed
+		return "";
+	}
+
+	return VCC.statics[def.displayName] = function transformer(str) {
+		return str.replace(tagRx, function(whole, attribs, kids) {
+			var sa = (attribs||"").trim(),
+				content = (kids||"").trim(),
+				props = {},
+				that = {
+					displayName: def.displayName
+				},
+				tag = {};
+			//populate object tag with html-set attribs to over-ride default props
+			if (sa !== "") for (b = 0; b < 4; b++) sa = sa && sa.replace(rxs[b], fnReppr.bind(tag));
+			//setup props+state:
+			that.props = assign(assign({}, def.getDefaultProps()), tag);
+			that.state = assign({}, def.getInitialState());
+			// bu/pub orig tag contents
+			if (content) that.content = content;
+			// call cWM:
+			if (typeof def.componentWillMount === "function") def.componentWillMount.call(that);
+			// build "innerHTML": 
+			content = def.render.call(that) || kids;
+			// return string representing component
+			return "<vcc-" + def.displayName + attribs + ">" + content + "<\/vcc-" + def.displayName + ">";
+		});
+	};
+}
+
+  
   VCC.attrs=function(o){
   	return Object.keys(o).map(function(k){
 		var v=o[k];
@@ -227,6 +291,8 @@ VCC.data = function _(elm, obj) {
 	});
 	return _(elm);
 };
+
+VCC.statics={};
 
 VCC.keys={};
 ( 
