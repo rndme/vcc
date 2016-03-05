@@ -57,15 +57,54 @@ VCC currently ships with a few common addons statically defined:
 
 
 
+
 ## Static Utilities
 Handy app and ES6 template helpers to reduce the boilerplate of pure JS logic
 
 * `VCC.show(val)` - if not `==true`, then returns " hidden ", else returns an empty string <br>
 * `VCC.checked(val)` - if `v` is `==true`, outputs ` checked ` else outputs and empty string <br>
 * `VCC.attrs(obj)` - serializes an object into a string of HTML attributes <br>
-* `VCC.classes(obj)` - returns space-seperated list of object key names whose values `==true` <br>
+* `VCC.classes(obj)` - returns space-separated list of object key names whose values `==true` <br>
 * `VCC.data(elm, obj)` -  gets or sets one or more `data-` attribs as an object <br>
 * `VCC.hasRoute(route, strIfFalse)` - uses `location.hash` to match a String or RegExp route name<br>
+
+
+## Static Components
+Activated by setting `_static: true,` in a component definition, static components render extremely fast by running on a lightweight subset of the full VCC API. 
+This partially solves [the drawbacks](#caveats) associated with the polyfill version of `document.registerElement` VCC uses in some browsers, 
+and allows all browsers to render fast and simple sub-components. Only the options listed below will be applied to the component. 
+
+Static components do not update once rendered (instead, they are cheap to render) so they don't need methods like `shouldComponentUpdate` or `setState`. You cannot update the state of an instance, but you can modify the value returned by initialState to activate component-wide changes on the next render. If a parent component changes an attrib given to the static component, that new value will show up in the render, making attributes the primary method for customizing static components.
+
+### Static Component Definition Members
+
+|Property|Description| 
+|--------|----------|
+|displayName		|String tag name of the component|
+|getDefaultProps()	|Object or object-returning function of initial properties (attribs)|
+|getInitialState()	|Object or object-returning function of default state config (internal)|
+|componentWillMount	|Event: Before .render() (no DOM children)|
+|mixins			|Object or Array of Objects used to extend the component _definition_|
+|render()		|String-returning method that defines component's .innerHTML|
+
+
+
+
+### Static Component Instance Members
+
+|Property|Desription|
+|--------|----------|
+|this |	the lightweight instance object with {props, state, displayName, content} members |
+|props|	object of properties, typically for late-specified data |
+|state|	object of view state |
+|displayName| the tag name of the component (inherited from def) |
+
+
+
+
+
+
+
 
 
 ## Tips and Tricks
