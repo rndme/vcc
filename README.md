@@ -100,8 +100,15 @@ Static components do not update once rendered (instead, they are cheap to render
 |displayName| the tag name of the component (inherited from def) |
 
 
-
-
+### Example Static Component:
+```js
+VCC({
+	_static: 	true,
+	displayName: 	"date",
+	render: 	function() { return new Date(+this.content||this.content).toLocaleDateString(); }
+});
+```
+This component formats a Date instance into a human-readable date (no time). [Live Demo](http://pagedemos.com/rf6j9zab6g5v/)
 
 
 
