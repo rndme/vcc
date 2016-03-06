@@ -351,7 +351,7 @@ VCC.LinkedStateMixin={
 			  	ob[prop]= value;
 				this.setState(ob);
  			};
-		  	inp.setAttribute("on-change", "this._handle_"+prop+"($0)");
+		  	inp.setAttribute("on-change", "this._handle_"+prop+"($0.value)");
 		  	inp.value=this.state[prop];
 		}, this);
   },
