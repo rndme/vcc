@@ -28,7 +28,7 @@ function filter(r, f) {
 
 
 var elementFromString = function elementFromString(strHTML, containerTagName) {
-	var temp = document.createElement("div");
+	var temp = document.createElement( containerTagName && containerTagName.indexOf("-")===-1 ? containerTagName : "div");
 	temp._intraDirty=true;
 	temp.innerHTML = strHTML;
 	return temp;
