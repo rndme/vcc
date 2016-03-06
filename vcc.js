@@ -233,7 +233,8 @@ function VCCstatic(def) {
 				content = (kids||"").trim(),
 				props = {},
 				that = {
-					displayName: def.displayName
+					displayName: def.displayName,
+					VCC: VCC
 				},
 				tag = {};
 			//populate object tag with html-set attribs to over-ride default props
@@ -246,7 +247,7 @@ function VCCstatic(def) {
 			// call cWM:
 			if (typeof def.componentWillMount === "function") def.componentWillMount.call(that);
 			// build "innerHTML": 
-			content = def.render.call(that) || kids;
+			content = def.render.call(that, VCC) || kids;
 			// return string representing component
 			return "<vcc-" + def.displayName + attribs + ">" + content + "<\/vcc-" + def.displayName + ">";
 		});
