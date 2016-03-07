@@ -77,7 +77,7 @@ function VCC(def) {
 		  	if(ref2.call) ref2.call(this, elm);
 		}, this);
 	  
-		call(def.componentDidMount, this);
+		call(def.componentDidMount, this, VCC);
 		
 	};
 	proto.createdCallback = function _init(e) {
@@ -165,7 +165,7 @@ function VCC(def) {
 	  
 	  	this._renderer=	renderer;
 		this._render= this.setState.bind(this, {});
-		call(def.componentWillMount, this, def);
+		call(def.componentWillMount, this, VCC, def);
 	  	renderer(true);
 		if(typeof def.renderTrigger === "function") def.renderTrigger(this._renderer.bind(this));
 	}; //end create callBack
@@ -245,7 +245,7 @@ function VCCstatic(def) {
 			// bu/pub orig tag contents
 			if (content) that.content = content;
 			// call cWM:
-			if (typeof def.componentWillMount === "function") def.componentWillMount.call(that);
+			if (typeof def.componentWillMount === "function") def.componentWillMount.call(that, VCC);
 			// build "innerHTML": 
 			content = def.render.call(that, VCC) || kids;
 			// return string representing component
@@ -267,6 +267,10 @@ function VCCstatic(def) {
 
 VCC.hasRoute=function(route, fillIn ){ 
 	return location.hash ? (location.hash.search(route)!=-1) : fillIn; 
+};
+
+VCC.getRoute=function(route){ 
+	return location.hash.split(route).slice(1).shift();
 };
 
 VCC.classes = function(a){  
