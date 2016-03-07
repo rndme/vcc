@@ -304,7 +304,9 @@ VCC.css = function css(strCSS, blnRemove) {
 	var text, doc = document;
 	css.cache = css.cache || {};
 	css.heap = css.heap || [];
-	VCC._style = VCC._style || doc.head.appendChild(doc.createElement("style"));
+	if(!VCC._style){
+		VCC._style = VCC._style || doc.head.appendChild(doc.createElement("style"));
+		VCC._style.id = "VCC_style";
 	if (blnRemove === true) {
 		var old = css.cache[strCSS];
 		if (!old) return false;
