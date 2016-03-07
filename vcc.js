@@ -134,6 +134,8 @@ function VCC(def) {
 			if(!this[method]) this[method] = def[method].bind(this);
 		}, this);
 
+		// add css (if any)
+		if(def.css) VCC.css(def.css);
 	  
 		function renderer(blnNow) {
 		  	function _render() {
@@ -298,8 +300,40 @@ VCC.data = function _(elm, obj) {
 	return _(elm);
 };
 
-VCC.statics={};
+VCC.css = function css(strCSS, blnRemove) {
+	var text, doc = document;
+	css.cache = css.cache || {};
+	css.heap = css.heap || [];
+	VCC._style = VCC._style || doc.head.appendChild(doc.createElement("style"));
+	if (blnRemove === true) {
+		var old = css.cache[strCSS];
+		if (!old) return false;
+		if (old.parentNode) {
+			VCC._style.removeChild(old);
+		} else {
+			var ind = css.heap.indexOf(old);
+			if (ind !== -1) css.heap.splice(ind, 1);
+		}
+		delete css.cache[strCSS];
+		return true;
+	}
 
+	if (!css.cache[strCSS]) {
+		clearTimeout(css.timer);
+		css.timer = setTimeout(function() {
+			css.heap.forEach(function(a) {
+				VCC._style.appendChild(a);
+			});
+			css.heap.length = 0;
+		}, 15);
+		text = doc.createTextNode(strCSS);
+		css.heap.push(text);
+		return css.cache[strCSS] = text;
+	}
+	return false;
+};
+
+VCC.statics={};
 VCC.keys={};
 
 forEach(( 
