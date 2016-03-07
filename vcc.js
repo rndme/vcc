@@ -269,7 +269,8 @@ VCC.hasRoute=function(route, fillIn ){
 	return location.hash ? (location.hash.search(route)!=-1) : fillIn; 
 };
 
-VCC.getRoute=function(route){ 
+VCC.getRoute=function(route){
+	if(typeof route === "string") route = RegExp(route+"=([^&]+)");
 	return location.hash.split(route).slice(1).shift();
 };
 
