@@ -47,6 +47,41 @@ VCC({
 <vcc-hello name="World"><h1>Hello World</h1></vcc-hello>
 ```
 
+### Pausable Clock Example  
+This example uses a click event and state management to show a pausable clock to the user:  [Live Demo of clock example](http://pagedemos.com/xaczuvkvttd9/)
+```js
+VCC({
+	displayName: 'clock',
+	componentWillMount: function() {
+		this.onclick = this._click;
+		this._click();
+	},
+	getInitialState: function() {
+		return {
+			interval: 0
+		};
+	},
+	render: function() {
+		return new Date()
+		  .toLocaleTimeString()
+		  .fontcolor(
+		  	this.state.interval ? 
+		  		"black" : 
+			  	"gray"
+		  );
+	},
+	_click: function(e) {
+		var me = this.state;
+		if (me.interval) this.setState({
+			interval: clearInterval(me.interval)
+		});
+		else this.setState({
+			interval: setInterval(this.setState, 1000)
+		});
+	}
+});
+```
+
 
 ## Add-Ons
 VCC currently ships with a few common addons statically defined: 
