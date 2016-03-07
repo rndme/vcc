@@ -85,9 +85,9 @@ function VCC(def) {
 		var that = this, oldState, oldProps;
 		assign(this, VCC.prototype); // implement inheritance  (since VCC is a function instead of object, it can't be auto)
 		this.VCC=VCC; // allow pure render functions when using utilities like VCC.classes(), VCC.show(), etc
-		this.state = assign({}, (typeof def.getInitialState === "object" ? def.getInitialState : call(def.getInitialState, this)) || {});
+		this.state = assign({}, (typeof def.getInitialState === "object" ? def.getInitialState : call(def.getInitialState, this, VCC)) || {});
 		this._def = def;
-		this.props =  assign({}, (typeof def.getDefaultProps === "object" ? def.getDefaultProps : call(def.getDefaultProps, this)) || {});
+		this.props =  assign({}, (typeof def.getDefaultProps === "object" ? def.getDefaultProps : call(def.getDefaultProps, this, VCC)) || {});
 	  	
 	  	
 		//allow "inheritance from array of mixouts left to right:  
