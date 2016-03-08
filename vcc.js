@@ -145,7 +145,7 @@ function VCC(def) {
 				});
 				if(renderer.oldView != temp )	VCC.intraHTML(that, renderer.oldView = temp);
 				if( that._attached) call(def.componentDidUpdate, that, that.props, oldState);
-				
+				VCC.trigger(that, "update");
 			}
 		  	if(blnNow === true) return _render();
 			clearTimeout(renderer.timer);
@@ -298,6 +298,12 @@ VCC.data = function _(elm, obj) {
 		}
 	});
 	return _(elm);
+};
+
+VCC.trigger = function(elm, strEvent) {
+	var event = document.createEvent('Event');
+	event.initEvent(strEvent, true, true);
+	return elm.dispatchEvent(event);
 };
 
 VCC.css = function css(strCSS, blnRemove) {
