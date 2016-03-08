@@ -38,8 +38,7 @@ If you need to change and/or remember something during the usage of your app, it
 Partial state objects you pass to `setState` extend the current state while whole states replace it.
 
 _Props_ are primarily a mechanism by which parents communicate chunks of data to children, via templating inside of `.render()`. However, since the component tag is inside the DOM, you might also find a need to modify it's attributes. 
-Changing an attrib updates the `props` object with a key of the same name and value. 
-Updating `props` does **not** update attributes. You can however, use `this.setAttribute("key", "testing")` to change the attribute `key` and update `props.key` to `"testing"` in one command.
+Updating `props` does **not** update attributes, but you can use `this.setAttribute("key", "testing")` to change the attribute `key` and update `props.key` to `"testing"` in one command.
 
 
 
@@ -123,7 +122,6 @@ Handy app and ES6 template helpers to reduce the boilerplate of pure JS logic
 * `VCC.show(val)` - if not `==true`, then returns " hidden ", else returns an empty string <br>
 * `VCC.trigger(elm, evt)` - given Element and String event name, raise that event on the element.<br>
 
-add VCC.$, VCC._, and VCC.elm utilities
 
 
 ## Static Components
