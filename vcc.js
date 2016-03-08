@@ -145,7 +145,6 @@ function VCC(def) {
 				});
 				if(renderer.oldView != temp )	VCC.intraHTML(that, renderer.oldView = temp);
 				if( that._attached) call(def.componentDidUpdate, that, that.props, oldState);
-				VCC.trigger(that, "update");
 			}
 		  	if(blnNow === true) return _render();
 			clearTimeout(renderer.timer);
@@ -162,7 +161,8 @@ function VCC(def) {
 			}
 		  	oldState = assign({}, that.state);
 			assign(that.state, state);
-			call(def.componentWillUpdate, this, this.props, state);			
+			call(def.componentWillUpdate, this, this.props, state);
+			VCC.trigger(that, "update");
 		};
 	  
 	  	this._renderer=	renderer;
@@ -184,10 +184,12 @@ function VCC(def) {
 		if(def.shouldComponentUpdate){
 			if(call(def.shouldComponentUpdate, this, newProps, this.state)){
 				call(def.componentWillUpdate, this, newProps, this.state);
+				VCC.trigger(this, "update");
 				this._renderer(true);	  	
 			}
 		}else{
 			call(def.componentWillUpdate, this, newProps, this.state);
+			VCC.trigger(this, "update");
 			this._renderer(true);		  
 		}
 	};
