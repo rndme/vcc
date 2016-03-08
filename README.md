@@ -32,6 +32,18 @@ These properties control almost eveything about the component using a literal-fr
 |`renderTrigger`|Function|a shortcut to bind to something like redux or CIA's `.subscribe` method, eg. `renderTrigger:store.subscribe,` will re-render each time the store updates |
 |`shouldComponentUpdate (newProps, newState)`|Function| Skip `.render()` by returning `false` |
 
+## State and Props
+Setting the _state_ of a component should be done through `this.setState({key: value})`, which triggers the update lifecycle process and (potentially) re-renders the component. 
+If you need to change and/or remember something during the usage of your app, it probably belongs in the state. 
+Partial state objects you pass to `setState` extend the current state while whole states replace it.
+
+_Props_ are primarily a mechanism by which parents communicate chunks of data to children, via templating inside of `.render()`. However, since the component tag is inside the DOM, you might also find a need to modify it's attributes. 
+Changing an attrib updates the `props` object with a key of the same name and value. 
+Updating `props` does **not** update attributes. You can however, use `this.setAttribute("key", "testing")` to change the attribute `key` and update `props.key` to `"testing"` in one command.
+
+
+
+## Simple Examples
 
 ### Hello World Example
 ```javascript
@@ -182,6 +194,8 @@ If you're not familiar with react or the VDOM concept, check it out. The main ad
 ## Differences from React
 
 * no JSX, returns a string of HTML from `render()`
+* `render:` is optional since not all tags need to template content.
+* component tags themselves appears in the DOM as a real tag (via Custom Element)
 * no built-in spreading props from JSX, but you can inject strings anywhere in HTML
 * no `react-id` or other unique IDs cluttering your clean HTML5 markup
 * no built-in helpers for `propTypes` on definition, use any function to coerce/default/throw as needed
@@ -189,6 +203,7 @@ If you're not familiar with react or the VDOM concept, check it out. The main ad
 * `displayName` on definition is REQUIRED to defines the tagName
 * no `ref` _String_ support, but does accept _Functions_ (which are recommended)
 * tag names must use a `vcc-` prefix and _no_ uppercase letters to conform with HTML5 Custom Elements
+* since it appears in the DOM, setting a component's attributes at run-time is ok, and updates `props`
 
 
 ## General Conversion Routine
