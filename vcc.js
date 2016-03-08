@@ -282,6 +282,8 @@ VCC.elm=function ht(ob){
 	return VCC.intraHTML.elementFromString(VCC.intraHTML.toHTML(ob)).firstChild;
 };
 
+VCC.ht = VCC.intraHTML.toHTML;
+
 VCC.hasRoute=function(route, fillIn ){ 
 	return location.hash ? (location.hash.search(route)!=-1) : fillIn; 
 };
