@@ -277,7 +277,9 @@ VCC.$=function(selector, base){
 };
 
 VCC.elm=function ht(ob){
-  return VCC.intraHTML.elementFromString(VCC.intraHTML.toHTML(ob)).firstChild;
+	if(!ob) ob= "div";
+	if(typeof ob==="string") return document.createElement(ob);
+	return VCC.intraHTML.elementFromString(VCC.intraHTML.toHTML(ob)).firstChild;
 };
 
 VCC.hasRoute=function(route, fillIn ){ 
