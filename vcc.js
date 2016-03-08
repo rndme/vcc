@@ -78,7 +78,7 @@ function VCC(def) {
 		}, this);
 	  
 		call(def.componentDidMount, this, VCC);
-		
+		VCC.trigger(this, "update");
 	};
 	proto.createdCallback = function _init(e) {
 		if(this.parentNode && this.parentNode._intraDirty) return;
