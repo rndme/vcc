@@ -258,16 +258,27 @@ function VCCstatic(def) {
 	};
 }
 
-  
-  VCC.attrs=function(o){
-  	return Object.keys(o).map(function(k){
+VCC.attrs=function(o){
+	return Object.keys(o).map(function(k){
 		var v=o[k];
 	  	if(v===false) return " ";
 	  	if(v===true) return k+" ";
 	  	return k+"="+JSON.stringify(v);
 	}).join("");
-  };
+};
 
+VCC._=function(r){
+	return [].slice.call(r);
+};
+
+VCC.$=function(selector, base){
+	base = base || document.documentElement;
+	return VCC._(base.querySelectorAll(selector));
+};
+
+VCC.elm=function ht(ob){
+  return VCC.intraHTML.elementFromString(VCC.intraHTML.toHTML(ob)).firstChild;
+};
 
 VCC.hasRoute=function(route, fillIn ){ 
 	return location.hash ? (location.hash.search(route)!=-1) : fillIn; 
