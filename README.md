@@ -107,16 +107,23 @@ VCC currently ships with a few common addons statically defined:
 
 ## Static Utilities
 Handy app and ES6 template helpers to reduce the boilerplate of pure JS logic
-
-* `VCC.show(val)` - if not `==true`, then returns " hidden ", else returns an empty string <br>
-* `VCC.checked(val)` - if `v` is `==true`, outputs ` checked ` else outputs and empty string <br>
+* `VCC.$(css, root)` - gets `Array` of tags matching _selectors_ under _root_ (opt) or `<html>`<br>
+* `VCC._(arrLike)` - returns a true array froma  collection, string, etc <br>
 * `VCC.attrs(obj)` - serializes an object into a string of HTML attributes <br>
+* `VCC.checked(val)` - if `v` is `==true`, outputs ` checked ` else outputs and empty string <br>
 * `VCC.classes(obj)` - returns space-separated list of object key names whose values `==true` <br>
+* `VCC.css(strCSS)` - unique inject CSS with a buffered heap. Pass same CSS + `, true` to remove<br>
 * `VCC.data(elm, obj)` -  gets or sets one or more `data-` attribs as an object <br>
+* `VCC.elm(obj)`- returns an Element from a lossless JS object defining the markups as follows:     
+    `$:"tagName"` and `_:[children]` are special, all other properties define attributes.    
+    `VCC.elm({$:"div", class:"main", _:["Hello ", {$:"b",_:["World"]}]});` turns into    
+    `<div class=main>Hello <b>World</b></div>`
 * `VCC.hasRoute(route, strIfFalse)` - uses `location.hash` to match a String or RegExp route name<br>
 * `VCC.getRoute(route)` - match `location.hash` w/ String/RX name of a `key=value` pair to get value<br>
+* `VCC.show(val)` - if not `==true`, then returns " hidden ", else returns an empty string <br>
 * `VCC.trigger(elm, evt)` - given Element and String event name, raise that event on the element.<br>
-* `VCC.css(strCSS)` - uniqe inject CSS with a buffered heap. Pass same CSS + `, true` to remove<br>
+
+add VCC.$, VCC._, and VCC.elm utilities
 
 
 ## Static Components
