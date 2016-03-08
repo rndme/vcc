@@ -102,6 +102,9 @@ Handy app and ES6 template helpers to reduce the boilerplate of pure JS logic
 * `VCC.classes(obj)` - returns space-separated list of object key names whose values `==true` <br>
 * `VCC.data(elm, obj)` -  gets or sets one or more `data-` attribs as an object <br>
 * `VCC.hasRoute(route, strIfFalse)` - uses `location.hash` to match a String or RegExp route name<br>
+* `VCC.getRoute(route)` - match `location.hash` w/ String/RX name of a `key=value` pair to get value<br>
+* `VCC.trigger(elm, evt)` - given Element and String event name, raise that event on the element.<br>
+* `VCC.css(strCSS)` - uniqe inject CSS with a buffered heap. Pass same CSS + `, true` to remove<br>
 
 
 ## Static Components
