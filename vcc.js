@@ -42,7 +42,7 @@ function VCC(def) {
 	  	return arguments.length===4 ? fn.call(that, a, b) : fn.call(that, a);
 	}
 
- 	var EVENTS="reset,invalid,focus,blur,select,keydown,keypress,keyup,mousedown,mouseup,click,dblclick,change,submit,input,paste".split(","),
+ 	var EVENTS="reset,invalid,focus,blur,select,keydown,keypress,keyup,mousedown,mouseup,click,dblclick,change,submit,input,paste,update".split(","),
    	fnCache={}, 
    	tagName = "vcc-" + def.displayName;
 
@@ -105,7 +105,7 @@ function VCC(def) {
 		  	this.props[attr.name]=val;
 		}, this);
 
-		var noBubbles=",focus,blur,select,keydown,keyup,mousedown,mouseup,submit,input,paste,";
+		var noBubbles=",focus,blur,select,keydown,keyup,mousedown,mouseup,submit,input,paste,update,";
 		
 		// bind any events to the actual tag:
 		EVENTS.forEach(function(evt) {
