@@ -36,7 +36,7 @@ function VCC(def) {
 	// guard input object and displayName property:
 	if(typeof def !== "object") throw new TypeError("VCC Expects a definition object");
 	if(typeof def.displayName !== "string") throw new TypeError("VCC Definition needs a String displayName property");
-	if(def._static===true) return VCCstatic(def); // use slimmer micro core for statics, good for simple sub-components
+	if(def._static===true || def._static==="content") return VCCstatic(def); // use slimmer micro core for statics, good for simple sub-components
   	function call(fn, that, a, b){
 		if(!fn || typeof fn !== "function") return; 
 	  	return arguments.length===4 ? fn.call(that, a, b) : fn.call(that, a);
@@ -252,7 +252,9 @@ function VCCstatic(def) {
 			if (typeof def.componentWillMount === "function") def.componentWillMount.call(that, VCC);
 			// build "innerHTML": 
 			content = def.render.call(that, VCC) || kids;
+			
 			// return string representing component
+			if(def._static==="content") return content;
 			return "<vcc-" + def.displayName + attribs + ">" + content + "<\/vcc-" + def.displayName + ">";
 		});
 	};
