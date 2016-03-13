@@ -1,21 +1,22 @@
-# vcc
+# VCC
+
 View Component Creator : lightweight reactive web components <br />
 View the Unofficial [TodoMVC](http://todomvc.com/) [Todo Application Demo](http://danml.com/todo/) to kick the tires
 
-## What it is
+## About
 A react-inspired way of using web standards to create reusable semantic components. <br>
 It's essentially a light-weight API to create [custom elements](http://w3c.github.io/webcomponents/spec/custom/) using syntax like [React](https://facebook.github.io/react/) instead of [polymer](https://www.polymer-project.org/1.0/) or [x-tags](http://x-tag.github.io/).
 
-## How it's made
+### How it's made
 Define custom web components using an intuitive declaration object with pre-defiend properties to configure lifecycle events, state management, and contents. [ES6 template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/template_strings) replace [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html), a [Virtual DOM](https://github.com/rndme/intraHTML) provides fast updates, and [HTML5 Custom Elements](https://www.w3.org/TR/custom-elements/) enables _real-life_ HTML tags. This combination delivers custom element components using a slim but powerful delarative API.
 
-## Component Definition Properties
+## Components
 These properties control almost eveything about the component using a literal-friendly interface:
 
 |Property|Type|Description |
 |-------:|:------:|-----|
 |`_delegate`|Boolean|event delegation option: eg. `<ul on-click=...` to catch `<li>` clicks |
-|`componentDidMount()`|Function|_Event_: After initial `.render()`, now in DOM and populated |
+|`componentDidMount()`| Function |_Event_: After initial `.render()`, now in DOM and populated |
 |`componentDidUpdate (prevProps, prevState)`|Function|_Event_: new props/state, good for DOM |
 |`componentWillMount`|Function|_Event_: Before `.render()` (no DOM children) |
 |`componentWillReceiveProps (newProps)`|Function|_Event_: Good for setState() |
@@ -32,7 +33,7 @@ These properties control almost eveything about the component using a literal-fr
 |`renderTrigger`|Function|a shortcut to bind to something like redux or CIA's `.subscribe` method, eg. `renderTrigger:store.subscribe,` will re-render each time the store updates |
 |`shouldComponentUpdate (newProps, newState)`|Function| Skip `.render()` by returning `false` |
 
-## State and Props
+### State and Props
 Setting the _state_ of a component should be done through `this.setState({key: value})`, which triggers the update lifecycle process and (potentially) re-renders the component. 
 If you need to change and/or remember something during the usage of your app, it probably belongs in the state. 
 Partial state objects you pass to `setState` extend the current state while whole states replace it.
@@ -42,58 +43,27 @@ Updating `props` does **not** update attributes, but you can use `this.setAttrib
 
 
 
-## Simple Examples
 
-### Hello World Example
-```javascript
-VCC({
-  displayName: "hello",
-  render: function() {
-    return `<h1>Hello ${this.props.name}</h1>`;
-  }
-});
-```
-+`<vcc-hello name="World"></vcc-hello>` =
-```html
-<vcc-hello name="World"><h1>Hello World</h1></vcc-hello>
-```
-
-### Pausable Clock Example  
-This example uses a click event and state management to show a pausable clock to the user:  [Live Demo of clock example](http://pagedemos.com/xaczuvkvttd9/)
-```js
-VCC({
-	displayName: 'clock',
-	componentWillMount: function() {
-		this.onclick = this._click;
-		this._click();
-	},
-	getInitialState: function() {
-		return {
-			interval: 0
-		};
-	},
-	render: function() {
-		return new Date()
-		  .toLocaleTimeString()
-		  .fontcolor(
-		  	this.state.interval ? 
-		  		"black" : 
-			  	"gray"
-		  );
-	},
-	_click: function(e) {
-		var me = this.state;
-		if (me.interval) this.setState({
-			interval: clearInterval(me.interval)
-		});
-		else this.setState({
-			interval: setInterval(this.setState, 1000)
-		});
-	}
-});
-```
-
-
+### Tips and Tricks
+* Paste component definitions into the [babel REPL](https://babeljs.io/repl/) to get code that runs in IE
+* Use helpers like `VCC.classes({y:1, n:0})` and `VCC.checked(obj.isActive)` to cleanup templated attribs
+* Create static components (no updates/DOM interaction) using `shouldComponentUpdate: Boolean.bind(null, false),`
+* Don't deeply nest complex components, use `VCC.Store` to flatten updates instead
+* Inside of VCC.Store reducers, returning nothing has the same effect as `return state;`
+* `VCC.Store`'s `.dispatch('SOMETYPE)` is the same as `.dispatch({type: 'SOMETYPE'})`
+* Inside of `on-event` handlers, `this` is the custom element and `event.target` raised the event
+* The `this` value in template expressions is the nearest overhead custom element component
+* `elm._renderer(true)` forces redraw and `elm._render()` triggers one (w/shouldComponentUpdate, debounce, etc)
+* Catch many keycodes: `switch(VCC.keys['_'+(e.which||e.keyCode)]){case 'RETURN':case 'SPACE': return false;}`
+* Compare a single keycode with constants: `if(VCC.keys['ESCAPE']==(e.which||e.keyCode))`
+* `VCC` is passed to render to allow pure use (DI) of the [Static Utilities](static-utilities): `render: function(VCC)`
+* The [Static Utilities](static-utilities) can be reached inside of render as `this.VCC`
+* All `mixouts` can be reached inside of render and events as `this._name_`: `mixouts:{double:x=>x*x},` ... `${this.double(this.state.cost)}`
+* You _can_ use objects instead of functions with `getInitialState:{a:1},` and `getDefaultProps:{b:2},`
+ 
+	
+	
+	
 ## Add-Ons
 VCC currently ships with a few common addons statically defined: 
 
@@ -156,11 +126,13 @@ Static components do not update once rendered (instead, they are cheap to render
 
 
 ### Example Static Component:
-```js
+```javascript
 VCC({
 	_static: 	true,
 	displayName: 	"date",
-	render: 	function() { return new Date(+this.content||this.content).toLocaleDateString(); }
+	render: 	function() { 
+		return new Date( +this.content || this.content ).toLocaleDateString(); 
+	}
 });
 ```
 This component formats a Date instance into a human-readable date (no time). [Live Demo](http://pagedemos.com/rf6j9zab6g5v/)
@@ -169,34 +141,16 @@ This component formats a Date instance into a human-readable date (no time). [Li
 
 
 
-## Tips and Tricks
-* Paste component definitions into the [babel REPL](https://babeljs.io/repl/) to get code that runs in IE
-* Use helpers like `VCC.classes({y:1, n:0})` and `VCC.checked(obj.isActive)` to cleanup templated attribs
-* Create static components (no updates/DOM interaction) using `shouldComponentUpdate: Boolean.bind(null, false),`
-* Don't deeply nest complex components, use `VCC.Store` to flatten updates instead
-* Inside of VCC.Store reducers, returning nothing has the same effect as `return state;`
-* `VCC.Store`'s `.dispatch('SOMETYPE)` is the same as `.dispatch({type: 'SOMETYPE'})`
-* Inside of `on-event` handlers, `this` is the custom element and `event.target` raised the event
-* The `this` value in template expressions is the nearest overhead custom element component
-* `elm._renderer(true)` forces redraw and `elm._render()` triggers one (w/shouldComponentUpdate, debounce, etc)
-* Catch many keycodes: `switch(VCC.keys['_'+(e.which||e.keyCode)]){case 'RETURN':case 'SPACE': return false;}`
-* Compare a single keycode with constants: `if(VCC.keys['ESCAPE']==(e.which||e.keyCode))`
-* `VCC` is passed to render to allow pure use (DI) of the [Static Utilities](static-utilities): `render: function(VCC)`
-* The [Static Utilities](static-utilities) can be reached inside of render as `this.VCC`
-* All `mixouts` can be reached inside of render and events as `this._name_`: `mixouts:{double:x=>x*x},` ... `${this.double(this.state.cost)}`
-* You _can_ use objects instead of functions with `getInitialState:{a:1},` and `getDefaultProps:{b:2},`
- 
 
 
-
-## Why
+## Comparison
 [React](https://github.com/facebook/react) has some great ideas, but needs [build tools](https://github.com/facebook/react/wiki/Complementary-Tools#build-tools) and a [large runtime](https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.min.js), and web components don't. <br />
 Web Components also use existing, standardized syntax like `<li class=item>` instead of `<li className=item>`, reduing the re-learning needed to use it. VCC is made of lifecycle events, a VDOM-based differ, and a few helpers; all your work is done in JS, with the  syntax, style, and libraries of your choice riding along as needed.
 
 If you're not familiar with react or the VDOM concept, check it out. The main advantage is that you can write simple full-page templates like we did with PHP 10 years ago, but that those templates can update w/o UX side-effects as views are instantly merged with the user's screen. This keeps all the moving parts updated with simple logic instead of an untenable heap of DOM calls.
 
 
-## Differences from React
+### Differences from React
 
 * no JSX, returns a string of HTML from `render()`
 * `render:` is optional since not all tags need to template content.
@@ -211,7 +165,7 @@ If you're not familiar with react or the VDOM concept, check it out. The main ad
 * since it appears in the DOM, setting a component's attributes at run-time is ok, and updates `props`
 
 
-## General Conversion Routine
+### General Conversion Routine
 It's easy to convert demos from React to VCC by making a few simple syntax adjustments to bring JSX in line with HTML5.
 
 * change the tag wrappers in `render()` return from ` ( ` and ` ) ` to <code>`</code> (both sides)
@@ -223,11 +177,11 @@ It's easy to convert demos from React to VCC by making a few simple syntax adjus
 
 
  
-## W3 to React Life Cycle Events
+### W3 to React Life Cycle Events
 Web component events provide enough unerpinning to provide customary component lifecycle events:
-
+	
 | Web Component Event      | VCC Event(s)              | 
-|--------------------------|---------------------------| 
+|-------------------------:|---------------------------| 
 | createdCallback          | componentWillMount        | 
 |                          | componentDidUpdate        | 
 |                          |                           | 
@@ -241,7 +195,7 @@ Web component events provide enough unerpinning to provide customary component l
 |                          | componentDidUpdate        | 
 
   
-## Caveats
+### Caveats
 *So this all looks really neat, but what's the catch from not having a build step?*
 
 To run at max power `document.registerElement()` must be supported by the browser. The included polyfill is not perfect and has one important behavior difference compared to native support: the polyfill doesn't immediately (sync) populate the contents of nested components (child html mods made during `componentWillMount`). 
@@ -252,7 +206,61 @@ TLDR; if you need to run something complex at top-speed in non-webkit, don't nes
 You don't need to nest VCC components at all if you use VCC.store or something like [redux](https://github.com/reactjs/redux) or [CIA](https://github.com/rndme/cia) to talk between all the pieces of your app.
 
 
+	
+	
  
+## Examples
+
+### Hello World Example
+```javascript
+VCC({
+  displayName: "hello",
+  render: function() {
+    return `<h1>Hello ${this.props.name}</h1>`;
+  }
+});
+```
++`<vcc-hello name="World"></vcc-hello>` =
+```html
+<vcc-hello name="World"><h1>Hello World</h1></vcc-hello>
+```
+
+### Pausable Clock Example  
+This example uses a click event and state management to show a pausable clock to the user:  [Live Demo of clock example](http://pagedemos.com/xaczuvkvttd9/)
+```javascript
+VCC({
+	displayName: 'clock',
+	componentWillMount: function() {
+		this.onclick = this._click;
+		this._click();
+	},
+	getInitialState: function() {
+		return {
+			interval: 0
+		};
+	},
+	render: function() {
+		return new Date()
+		  .toLocaleTimeString()
+		  .fontcolor(
+		  	this.state.interval ? 
+		  		"black" : 
+			  	"gray"
+		  );
+	},
+	_click: function(e) {
+		var me = this.state;
+		if (me.interval) this.setState({
+			interval: clearInterval(me.interval)
+		});
+		else this.setState({
+			interval: setInterval(this.setState, 1000)
+		});
+	}
+});
+```
+
+
  
 
 ## Instructional Demos
@@ -275,25 +283,25 @@ You don't need to nest VCC components at all if you use VCC.store or something l
 
 ---
 
-## Demo01: Render HTML ([source](https://github.com/rndme/react-demos/blob/master/demo01/index.html)) ([live](http://danml.com/vcc/react-demos/demo01/))
+### Demo01: Render HTML ([source](https://github.com/rndme/react-demos/blob/master/demo01/index.html)) ([live](http://danml.com/vcc/react-demos/demo01/))
 
 The template syntax in VCC is called HTML, as in regular HTML5. Use ES6 template literals to contain pretty (un-escaped) multi-line HTML in JS files.
 If you want backwards compatibility with non-ES6 browsers, use something like babel to transform your source into ES5.
 
 note:  VCC.intraHTML is the entry way to the internal VDOM-based partial updater, used to render without defining a component.
 
-```js
+```javascript
 VCC.intraHTML(
   document.getElementById('example'),
   `<h1>Hello, world!</h1>`
 );
 ```
 
-## Demo02: Use JavaScript in HTML ([source](https://github.com/rndme/react-demos/blob/master/demo02/index.html)) ([live](http://danml.com/vcc/react-demos/demo02/))
+### Demo02: Use JavaScript in HTML ([source](https://github.com/rndme/react-demos/blob/master/demo02/index.html)) ([live](http://danml.com/vcc/react-demos/demo02/))
 
 You could also use JavaScript in HTML. It takes angle brackets (&lt;) as the beginning of HTML syntax, and money curly brackets (${) as the beginning of JavaScript syntax.
 
-```js
+```javascript
 var names = ['Alice', 'Emily', 'Kate'];
 
 VCC.intraHTML(
@@ -308,11 +316,11 @@ VCC.intraHTML(
 );
 ```
 
-## Demo03: Use array in HTML ([source](https://github.com/rndme/react-demos/blob/master/demo03/index.html))  ([live](http://danml.com/vcc/react-demos/demo03/))
+### Demo03: Use array in HTML ([source](https://github.com/rndme/react-demos/blob/master/demo03/index.html))  ([live](http://danml.com/vcc/react-demos/demo03/))
 
 If a JavaScript variable is array, VCC will NOT implicitly concat all members of the array, so use `join("")` to view arrays:
 
-```js
+```javascript
 var arr = [
   `<h1>Hello world!</h1>`,
   `<h2>VCC is awesome</h2>`,
@@ -324,7 +332,7 @@ VCC.intraHTML(
 );
 ```
 
-## Demo04: Define a component ([source](https://github.com/rndme/react-demos/blob/master/demo04/index.html))  ([live](http://danml.com/vcc/react-demos/demo04/))
+### Demo04: Define a component ([source](https://github.com/rndme/react-demos/blob/master/demo04/index.html))  ([live](http://danml.com/vcc/react-demos/demo04/))
 
 `VCC()` creates a component class, which implements a render method to return an component instance of the class. You don't need to call `new` on the class in order to get an instance, just use it to define behavior of a custom HTML element.
 
@@ -348,7 +356,7 @@ Components could have attributes, and you can use `this.props.[attribute]` to ac
 
 
 
-## Demo05: this.props.children ([source](https://github.com/rndme/react-demos/blob/master/demo05/index.html))  ([live](http://danml.com/vcc/react-demos/demo05/))
+### Demo05: this.props.children ([source](https://github.com/rndme/react-demos/blob/master/demo05/index.html))  ([live](http://danml.com/vcc/react-demos/demo05/))
 
 VCC uses `this.children to access a component's content.
 
@@ -385,7 +393,7 @@ Please be minded that the value of `this.children` has two possibilities. If the
 
 
 
-## Demo06: PropTypes ([source](https://github.com/ruanyf/react-demos/blob/master/demo06/index.html)) ([live](http://danml.com/vcc/react-demos/demo06/))
+### Demo06: PropTypes ([source](https://github.com/rndme/react-demos/blob/master/demo06/index.html)) ([live](http://danml.com/vcc/react-demos/demo06/))
 
 Components have many specific attributes which are called ”props” in VCC and can be of any type, the default is `String`, which is how incoming prop updates from HTML5 attributes arrive.
 
@@ -429,11 +437,11 @@ This means the new property value is converted to a `String` _before_ updating `
 
 
 
-## Demo07: Finding a DOM node ([source](https://github.com/rndme/react-demos/blob/master/demo07/index.html))  ([live](http://danml.com/vcc/react-demos/demo07/))
+### Demo07: Finding a DOM node ([source](https://github.com/rndme/react-demos/blob/master/demo07/index.html))  ([live](http://danml.com/vcc/react-demos/demo07/))
 
 Sometimes you need to reference a DOM node in a component. VCC gives you the `ref` attribute to find it using a callback function.
 
-```js
+```javascript
   var MyComponent = VCC({
 	displayName: "mycomponent",
   handleClick: function() {
@@ -468,11 +476,11 @@ The referenced component will be passed in as a parameter, and the callback func
 
 
 
-## Demo08: this.state ([source](https://github.com/rndme/react-demos/blob/master/demo08/index.html))  ([live](http://danml.com/vcc/react-demos/demo08/))
+### Demo08: this.state ([source](https://github.com/rndme/react-demos/blob/master/demo08/index.html))  ([live](http://danml.com/vcc/react-demos/demo08/))
 
 VCC thinks of component as state machines, and uses `this.state` to hold component's state, `getInitialState()` to initialize `this.state`(invoked before a component is mounted), `this.setState()` to update `this.state` and re-render the component.
 
-```js
+```javascript
 var LikeButton = VCC({
  displayName: "likebutton",
   getInitialState: function() {
@@ -500,14 +508,14 @@ You could use component attributes to register event handlers, just like `on-cli
 
 
 
-## Demo09: Form ([source](https://github.com/rndme/react-demos/blob/master/demo09/index.html))  ([live](http://danml.com/vcc/react-demos/demo09/))
+### Demo09: Form ([source](https://github.com/rndme/react-demos/blob/master/demo09/index.html))  ([live](http://danml.com/vcc/react-demos/demo09/))
 
 According to VCC's design philosophy, `this.state` describes the state of component and is mutated via user interactions, and `this.props` describes the properties of component and is stable and immutable.
 
-Since that, the `value` attribute of Form components, such as &lt;input&gt;, &lt;textarea&gt;, and &lt;option&gt;, is unaffected by any user input. 
+Since that, the `value` attribute of Form components, such as &lt;input&gt;, textarea, and &lt;option&gt;, is unaffected by any user input. 
 If you wanted to access or update the value in response to user input, you could use the on-change event.
 
-```js
+```javascript
 var Input = VCC({
   displayName: "input",
   getInitialState: function() {
@@ -532,12 +540,12 @@ var Input = VCC({
 <vcc-input></vcc-input>
 ```
 
-## Demo10: Component Lifecycle ([source](https://github.com/rndme/react-demos/blob/master/demo10/index.html))  ([live](http://danml.com/vcc/react-demos/demo10/))
+### Demo10: Component Lifecycle ([source](https://github.com/rndme/react-demos/blob/master/demo10/index.html))  ([live](http://danml.com/vcc/react-demos/demo10/))
 
 Components have three main parts of their lifecycle: Mounting(being inserted into the DOM), Updating(being re-rendered) and Unmounting(being removed from the DOM). 
 VCC provides hooks into these lifecycle parts. `will` methods are called right before something happens, and `did` methods which are called right after something happens.
 
-```js
+```javascript
    var Hello = VCC({
       displayName: "hello",
       getInitialState: function () {
@@ -585,12 +593,12 @@ The following is a list of lifecycle methods.
 
 
 
-## Demo11: Ajax ([source](https://github.com/rndme/react-demos/blob/master/demo11/index.html))  ([live](http://danml.com/vcc/react-demos/demo11/))
+### Demo11: Ajax ([source](https://github.com/rndme/react-demos/blob/master/demo11/index.html))  ([live](http://danml.com/vcc/react-demos/demo11/))
 
 How to get the data of a component from a server or an API provider? The answer is using Ajax to fetch data in the event handler of `componentDidMount`. 
 When the server response arrives, store the data with `this.setState()` to trigger a re-render of your UI.
 
-```js
+```javascript
 var UserGist = VCC({
   displayName: "usergist",
   getInitialState: function() {
@@ -629,7 +637,7 @@ var UserGist = VCC({
 
 
 
-## Demo12: Display value from a Promise ([source](https://github.com/rndme/react-demos/tree/master/demo12/index.html))  ([live](http://danml.com/vcc/react-demos/demo12/))
+### Demo12: Display value from a Promise ([source](https://github.com/rndme/react-demos/tree/master/demo12/index.html))  ([live](http://danml.com/vcc/react-demos/demo12/))
 
 This demo is inspired by Nat Pryce's article ["Higher Order React Components"](http://natpryce.com/articles/000814.html).
 
@@ -685,7 +693,4 @@ Now, while the promise is pending, the component displays a loading indicator. W
 ```html
    <vcc-repolist promise="$.getJSON('https://api.github.com/search/repositories?q=javascript&sort=stars')" ></vcc-repolist>
 ```
-
-
- 
-<!-- blah yah -->	
+  
