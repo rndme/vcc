@@ -685,3 +685,7 @@ Now, while the promise is pending, the component displays a loading indicator. W
 ```html
    <vcc-repolist promise="$.getJSON('https://api.github.com/search/repositories?q=javascript&sort=stars')" ></vcc-repolist>
 ```
+
+
+ 
+<!-- blah yah -->	
