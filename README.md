@@ -245,13 +245,12 @@ VCC({
 ```
 
 ### Pausable Clock Example  
-This example uses a click event and state management to show a pausable clock to the user:  [Live Demo of clock example](http://pagedemos.com/xaczuvkvttd9/)
+This example uses a click event and state management to show a pausable clock to the user:  [Live Demo of clock example](http://pagedemos.com/9nmj42uu2beu/)
 ```javascript
 VCC({
 	displayName: 'clock',
-	componentWillMount: function() {
-		this.onclick = this._click;
-		this._click();
+	componentWillMount: function(){
+		this.onclick();
 	},
 	getInitialState: function() {
 		return {
@@ -267,7 +266,7 @@ VCC({
 			  	"gray"
 		  );
 	},
-	_click: function(e) {
+	onclick: function(e) {
 		var me = this.state;
 		if (me.interval) this.setState({
 			interval: clearInterval(me.interval)
