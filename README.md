@@ -9,11 +9,28 @@ View fancier [online docs](http://danml.com/vcc/docs.html)
 A react-inspired way of using web standards to create reusable semantic components. <br>
 It's essentially a light-weight API to create [custom elements](http://w3c.github.io/webcomponents/spec/custom/) using syntax like [React](https://facebook.github.io/react/) instead of [polymer](https://www.polymer-project.org/1.0/) or [x-tags](http://x-tag.github.io/).
 
+
+### Advantages
+
+#### HTML Elements
+Components expose custom methods and events to non-VCC actors. This makes it easy to set props by changing an attribute, and external props can be hit using  CSS2 `[attribute]` selectors. You can also easily inspect the full properties of the component in devtools without any browser add-ons. Lastly, serializing the component using ex. `elm.outerHTML` will define non-default prop values for later use. All we know and love about html, now available in components.
+
+#### No build process
+Changes can be made on the fly to one part without needing to re-bundle the whole application, allowing better caching, on-the-fly patching, and more contextualized error messages.
+The source of the component is the same code that runs, removing a layer of abstraction while allowing better debugging with simpler tools. More than anything, it's just simpler and more in the spirit of the web where code runs in the open.
+
+
+#### Lightweight Runtime
+A cat will beat a horse in a race that lasts one second. At about 25kb pre-gzip, VCC doesn't make mobile users wait around to get going. Components arrive in the actual HTML, allowing pre-mounting CSS targeting and accelerated layout. Despite the diminutive size, VCC provides a great API for creating re-usable UI components while embracing web standards.
+
+
 ### How it's made
 Define custom web components using an intuitive declaration object with pre-defiend properties to configure lifecycle events, state management, and contents. [ES6 template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/template_strings) replace [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html), a [Virtual DOM](https://github.com/rndme/intraHTML) provides fast updates, and [HTML5 Custom Elements](https://www.w3.org/TR/custom-elements/) enables _real-life_ HTML tags. This combination delivers custom element components using a slim but powerful delarative API.
 
 ## Components
-These properties control almost eveything about the component using a literal-friendly interface:
+
+### Properties
+These properties control almost eveything about the component using a decalrative literal-friendly interface:
 
 |Property|Type|Description |
 |-------:|:------:|-----|
