@@ -10,6 +10,9 @@ A react-inspired way of using web standards to create reusable semantic componen
 It's essentially a light-weight API to create [custom elements](http://w3c.github.io/webcomponents/spec/custom/) using syntax like [React](https://facebook.github.io/react/) instead of [polymer](https://www.polymer-project.org/1.0/) or [x-tags](http://x-tag.github.io/).
 
 
+### Setup
+Use `npm install vcc` or `bower install vcc` or just download and include [the script file](https://raw.githubusercontent.com/rndme/vcc/master/vcc.js) in your page or application.
+
 ### Advantages
 
 #### HTML Elements
