@@ -108,13 +108,20 @@ Handy app and ES6 template helpers to reduce the boilerplate of pure JS logic
 * `VCC.elm(obj)`- returns an Element from a lossless JS object defining the markups as follows:      
       
     `$:"tagName"` and `_:[children]` are special, all other properties define attributes.    
-  ```js
-	VCC.elm({$:"div", class:"main", _:["Hello ", {$:"b",_:["World"]}]});
-  ```    
-	turns into      
-  ```html 
-	<div class=main>Hello <b>World</b></div>
-  ```
+```js
+VCC.elm({ $: "div", class: "main", _: [
+	"Hello ", {$: "b",_: [
+		"World"
+	]}
+]});
+```    
+	turns into:  (whitespace exagerated)
+```html 
+<div class=main>
+	Hello 
+	<b>World</b>
+</div>
+```
 * `VCC.ht(obj)` - same as VCC.elm but returns a string instead of an Element.
 * `VCC.hasRoute(route, strIfFalse)` - uses `location.hash` to match a String or RegExp route name
 * `VCC.getRoute(route)` - match `location.hash` w/ String/RX name of a `key=value` pair to get value
