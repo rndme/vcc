@@ -32,7 +32,7 @@ Define custom web components using an intuitive declaration object with pre-defi
 
 ## Components
 
-### Properties
+### Component Properties
 These properties control almost eveything about the component using a decalrative literal-friendly interface:
 
 |Property|Type|Description |
@@ -54,123 +54,6 @@ These properties control almost eveything about the component using a decalrativ
 |`render()`|Function| string-returning method that defines component's .innerHTML |
 |`renderTrigger`|Function|a shortcut to bind to something like redux or CIA's `.subscribe` method, eg. `renderTrigger:store.subscribe,` will re-render each time the store updates |
 |`shouldComponentUpdate (newProps, newState)`|Function| Skip `.render()` by returning `false` |
-
-
-
-### Lifecycle Methods
-(These descrioptions taken from https://facebook.github.io/react/docs/component-specs.html)
-
-Various methods are executed at specific points in a component's lifecycle.
-
-
-#### Mounting: componentWillMount
-
-```javascript
-void componentWillMount()
-```
-
-Invoked once, both on the client and server, immediately before the initial rendering occurs. If you call `setState` within this method, `render()` will see the updated state and will be executed only once despite the state change.
-
-
-#### Mounting: componentDidMount
-
-```javascript
-void componentDidMount()
-```
-
-Invoked once, only on the client (not on the server), immediately after the initial rendering occurs. At this point in the lifecycle, you can access any refs to your children (e.g., to access the underlying DOM representation). The `componentDidMount()` method of child components is invoked before that of parent components.
-
-If you want to integrate with other JavaScript frameworks, set timers using `setTimeout` or `setInterval`, or send AJAX requests, perform those operations in this method.
-
-
-#### Updating: componentWillReceiveProps
-
-```javascript
-void componentWillReceiveProps(
-  object nextProps
-)
-```
-
-Invoked when a component is receiving new props. This method is not called for the initial render.
-
-Use this as an opportunity to react to a prop transition before `render()` is called by updating the state using `this.setState()`. The old props can be accessed via `this.props`. Calling `this.setState()` within this function will not trigger an additional render.
-
-```javascript
-componentWillReceiveProps: function(nextProps) {
-  this.setState({
-    likesIncreasing: nextProps.likeCount > this.props.likeCount
-  });
-}
-```
-
-> Note:
-> There is no analogous method `componentWillReceiveState`. An incoming prop transition may cause a state change, but the opposite is not true. If you need to perform operations in response to a state change, use `componentWillUpdate`.
-
-
-#### Updating: shouldComponentUpdate
-
-```javascript
-boolean shouldComponentUpdate(
-  object nextProps, object nextState
-)
-```
-
-Invoked before rendering when new props or state are being received. This method is not called for the initial render or when `forceUpdate` is used.
-
-Use this as an opportunity to `return false` when you're certain that the transition to the new props and state will not require a component update.
-
-```javascript
-shouldComponentUpdate: function(nextProps, nextState) {
-  return nextProps.id !== this.props.id;
-}
-```
-
-If `shouldComponentUpdate` returns false, then `render()` will be completely skipped until the next state change. In addition, `componentWillUpdate` and `componentDidUpdate` will not be called.
-
-By default, `shouldComponentUpdate` always returns `true` to prevent subtle bugs when `state` is mutated in place, but if you are careful to always treat `state` as immutable and to read only from `props` and `state` in `render()` then you can override `shouldComponentUpdate` with an implementation that compares the old props and state to their replacements.
-
-If performance is a bottleneck, especially with dozens or hundreds of components, use `shouldComponentUpdate` to speed up your app.
-
-
-#### Updating: componentWillUpdate
-
-```javascript
-void componentWillUpdate(
-  object nextProps, object nextState
-)
-```
-
-Invoked immediately before rendering when new props or state are being received. This method is not called for the initial render.
-
-Use this as an opportunity to perform preparation before an update occurs.
-
-> Note:
->
-> You *cannot* use `this.setState()` in this method. If you need to update state in response to a prop change, use `componentWillReceiveProps` instead.
-
-
-#### Updating: componentDidUpdate
-
-```javascript
-void componentDidUpdate(
-  object prevProps, object prevState
-)
-```
-
-Invoked immediately after the component's updates are flushed to the DOM. This method is not called for the initial render.
-
-Use this as an opportunity to operate on the DOM when the component has been updated.
-
-
-#### Unmounting: componentWillUnmount
-
-```javascript
-void componentWillUnmount()
-```
-
-Invoked immediately before a component is unmounted from the DOM.
-
-Perform any necessary cleanup in this method, such as invalidating timers or cleaning up any DOM elements that were created in `componentDidMount`.
 
 
 ### State and Props
@@ -201,8 +84,138 @@ Updating `props` does **not** update attributes, but you can use `this.setAttrib
 * All `mixouts` can be reached inside of render and events as `this._name_`: `mixouts:{double:x=>x*x},` ... `${this.double(this.state.cost)}`
 * You _can_ use objects instead of functions with `getInitialState:{a:1},` and `getDefaultProps:{b:2},`
  
-	
-	
+
+
+## Component Lifecycle
+(These descrioptions taken from https://facebook.github.io/react/docs/component-specs.html)
+
+Various methods are executed at specific points in a component's lifecycle.
+
+
+### Mounting: componentWillMount
+
+```javascript
+void componentWillMount()
+```
+
+Invoked once, both on the client and server, immediately before the initial rendering occurs. If you call `setState` within this method, `render()` will see the updated state and will be executed only once despite the state change.
+
+
+### Mounting: componentDidMount
+
+```javascript
+void componentDidMount()
+```
+
+Invoked once, only on the client (not on the server), immediately after the initial rendering occurs. At this point in the lifecycle, you can access any refs to your children (e.g., to access the underlying DOM representation). The `componentDidMount()` method of child components is invoked before that of parent components.
+
+If you want to integrate with other JavaScript frameworks, set timers using `setTimeout` or `setInterval`, or send AJAX requests, perform those operations in this method.
+
+
+### Updating: componentWillReceiveProps
+
+```javascript
+void componentWillReceiveProps(
+  object nextProps
+)
+```
+
+Invoked when a component is receiving new props. This method is not called for the initial render.
+
+Use this as an opportunity to react to a prop transition before `render()` is called by updating the state using `this.setState()`. The old props can be accessed via `this.props`. Calling `this.setState()` within this function will not trigger an additional render.
+
+```javascript
+componentWillReceiveProps: function(nextProps) {
+  this.setState({
+    likesIncreasing: nextProps.likeCount > this.props.likeCount
+  });
+}
+```
+
+> Note:
+> There is no analogous method `componentWillReceiveState`. An incoming prop transition may cause a state change, but the opposite is not true. If you need to perform operations in response to a state change, use `componentWillUpdate`.
+
+
+### Updating: shouldComponentUpdate
+
+```javascript
+boolean shouldComponentUpdate(
+  object nextProps, object nextState
+)
+```
+
+Invoked before rendering when new props or state are being received. This method is not called for the initial render or when `forceUpdate` is used.
+
+Use this as an opportunity to `return false` when you're certain that the transition to the new props and state will not require a component update.
+
+```javascript
+shouldComponentUpdate: function(nextProps, nextState) {
+  return nextProps.id !== this.props.id;
+}
+```
+
+If `shouldComponentUpdate` returns false, then `render()` will be completely skipped until the next state change. In addition, `componentWillUpdate` and `componentDidUpdate` will not be called.
+
+By default, `shouldComponentUpdate` always returns `true` to prevent subtle bugs when `state` is mutated in place, but if you are careful to always treat `state` as immutable and to read only from `props` and `state` in `render()` then you can override `shouldComponentUpdate` with an implementation that compares the old props and state to their replacements.
+
+If performance is a bottleneck, especially with dozens or hundreds of components, use `shouldComponentUpdate` to speed up your app.
+
+
+### Updating: componentWillUpdate
+
+```javascript
+void componentWillUpdate(
+  object nextProps, object nextState
+)
+```
+
+Invoked immediately before rendering when new props or state are being received. This method is not called for the initial render.
+
+Use this as an opportunity to perform preparation before an update occurs.
+
+> Note:
+>
+> You *cannot* use `this.setState()` in this method. If you need to update state in response to a prop change, use `componentWillReceiveProps` instead.
+
+
+### Updating: componentDidUpdate
+
+```javascript
+void componentDidUpdate(
+  object prevProps, object prevState
+)
+```
+
+Invoked immediately after the component's updates are flushed to the DOM. This method is not called for the initial render.
+
+Use this as an opportunity to operate on the DOM when the component has been updated.
+
+
+### Unmounting: componentWillUnmount
+
+```javascript
+void componentWillUnmount()
+```
+
+Invoked immediately before a component is unmounted from the DOM.
+
+Perform any necessary cleanup in this method, such as invalidating timers or cleaning up any DOM elements that were created in `componentDidMount`.
+
+
+## Component Events
+In addition to the lifecyle events, DOM and custom events may be used.
+
+### Pre-defined DOM events
+The `events` definition property object (or method) specifies DOM events to be bound to methods on the component. VCC automatically binds these events at element creation time. Events are written in the format {"event selector": "callback"}. The value must be the name of a method or a function. Omitting the selector binds to the component itself.
+
+
+### Custom Events
+Since DOM events, including custom events, bubble up to `<html>`, custom events are a great way to talk to parent components and containers. `VCC.trigger(elm, strEvent)` will dispatch an event of type `strEvent` on the `elm` Element, which will also fire on all parent elements. 
+
+
+### on-click vs onclick
+`on-event`-type events are synthetic and delegated. One event on the component watches all sub-tags for such events. Synthetic events vary from DOM events in that the `this` value is always the _component_, not the sub-tag that triggered the event. You can also use the word `event` inline in such atribs to refer to the event object, so `event.target` is the sub-tag that triggered the event. Lastly, there is a shortcut to `event.target` called `$1`, named after the console placeholder.
+
 	
 ## Add-Ons
 VCC currently ships with a few common addons statically defined: 
