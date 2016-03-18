@@ -45,6 +45,7 @@ These properties control almost eveything about the component using a decalrativ
 |`componentWillUnmount()`|Function|_Event_: Invoked upoon DOM node removal |
 |`componentWillUpdate (newProps, newState)`|Function|_Event_: about to render, too late for `.setState()` |
 |`displayName`|String| **REQUIRED** - the tagName of the custom element (without the `vcc-` prefix) |
+|`events`|Object| Specifies DOM events to be bound to methods on the component |
 |`getDefaultProps()`|Function|object or object-returning function of initial properties (attribs) |
 |`getInitialState()`|Function|object or object-returning function of default state config (internal)  |
 |`mixins`|Object| Object or Array of Objects used to extend the component definition |
