@@ -134,6 +134,22 @@ function VCC(def) {
 			if(!this[method]) this[method] = def[method].bind(this);
 		}, this);
 
+		  // bind any specified events to the actual tag and sub-tags using delegation:
+		  if(typeof def.events==="object"){
+			var m=that.matches||that.webkitMatchesSelector||that.mozMatchesSelector||that.msMatchesSelector;
+			Object.keys(def.events).forEach(function(evt){		  
+				var r=evt.trim().split(/\s+/), 
+					name=r.shift(),
+					sel=r.join(" "),
+					val=def.events[evt];
+		  
+		  			if(that[val]) that.addEventListener(name, function(e){
+						if(sel && !m.call(e.target, sel)) return;
+				  		return that[val].call(that, e);				  	
+					});
+			}, this);		
+	  	}//end if events?
+
 		// add css (if any)
 		if(def.css) VCC.css(def.css);
 	  
