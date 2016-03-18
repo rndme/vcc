@@ -168,7 +168,7 @@ function VCC(def) {
 			renderer.timer = setTimeout(_render, 25);
 		}
 
-		this.setState = function(state) {
+		this.setState = function(state, blnReplaceState) {
 			if(def.shouldComponentUpdate) {
 				if(call(def.shouldComponentUpdate, this, this.props, state)) {
 					renderer();
@@ -177,7 +177,11 @@ function VCC(def) {
 				renderer();
 			}
 		  	oldState = assign({}, that.state);
-			assign(that.state, state);
+			if(blnReplaceState === true){
+				that.state = state;
+			}else{
+				assign(that.state, state);
+			}
 			call(def.componentWillUpdate, this, this.props, state);
 			VCC.trigger(that, "update");
 		};
