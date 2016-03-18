@@ -307,6 +307,8 @@ VCC.elm=function ht(ob){
 
 VCC.ht = VCC.intraHTML.toHTML;
 
+VCC.assign = assign;
+
 VCC.hasRoute=function(route, fillIn ){ 
 	return location.hash ? (location.hash.search(route)!=-1) : fillIn; 
 };
