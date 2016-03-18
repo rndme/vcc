@@ -135,6 +135,7 @@ function VCC(def) {
 		}, this);
 
 		  // bind any specified events to the actual tag and sub-tags using delegation:
+		  if(typeof def.events==="function") def.events = def.events.call(this);
 		  if(typeof def.events==="object"){
 			var m=that.matches||that.webkitMatchesSelector||that.mozMatchesSelector||that.msMatchesSelector;
 			Object.keys(def.events).forEach(function(evt){		  
@@ -143,9 +144,9 @@ function VCC(def) {
 					sel=r.join(" "),
 					val=def.events[evt];
 		  
-		  			if(that[val]) that.addEventListener(name, function(e){
+		  			if(that[val] || val.call) that.addEventListener(name, function(e){
 						if(sel && !m.call(e.target, sel)) return;
-				  		return that[val].call(that, e);				  	
+				  		return (that[val]||val).call(that, e);				  	
 					});
 			}, this);		
 	  	}//end if events?
