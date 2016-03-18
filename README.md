@@ -55,6 +55,33 @@ These properties control almost eveything about the component using a decalrativ
 |`renderTrigger`|Function|a shortcut to bind to something like redux or CIA's `.subscribe` method, eg. `renderTrigger:store.subscribe,` will re-render each time the store updates |
 |`shouldComponentUpdate (newProps, newState)`|Function| Skip `.render()` by returning `false` |
 
+### Instance Methods
+Each component is an Element with a few extra methods added on be default.
+
+#### setState
+A function accepting a single object to be merged into the state of the component. Passing `true` as the 2nrd argument replaces the state instead of augmenting the state.
+
+#### _render
+Calls the internal `render()` method to update the view with data that not did go through `component.setState` or `component.setAttribute`, such as a timer or global variable.
+
+#### VCC
+A shortcut to VCC itself, mainly to allow using the static helper methods inside of render() and events as `this.VCC.methodName()`.
+
+
+### Instance Properties
+
+#### props
+An object of component properties. Attributes matching a prop name will update the prop with the attrib value upon changing. The initial props come from `def.getDefaultProps()`.
+
+#### state
+The state of the component, exposed so that render() and events can read the state. Do not directly modify this object, use `component.setState()` instead. The default state comes from `def.getInitialState()`.
+
+#### _attached
+A simple boolean flag set once the component element is attached to the dom.
+
+#### _def
+A shortcut to the component definition, rarely needed, but allows run-time reading of config as well as sub-classing and cloning.
+
 
 ### State and Props
 Setting the _state_ of a component should be done through `this.setState({key: value})`, which triggers the update lifecycle process and (potentially) re-renders the component. 
