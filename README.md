@@ -235,15 +235,34 @@ In addition to the lifecyle events, DOM and custom events may be used.
 ### Pre-defined DOM events
 The `events` definition property object (or method) specifies DOM events to be bound to methods on the component. VCC automatically binds these events at element creation time. Events are written in the format {"event selector": "callback"}. The value must be the name of a method or a function. Omitting the selector binds to the component itself.
 
+[live demo](http://pagedemos.com/y3c9q6f39e3e/)
+```js
+VCC({
+	displayName: "test",
 
-### Custom Events
-Since DOM events, including custom events, bubble up to `<html>`, custom events are a great way to talk to parent components and containers. `VCC.trigger(elm, strEvent)` will dispatch an event of type `strEvent` on the `elm` Element, which will also fire on all parent elements. 
+	makeRed:   function() { this.style.color = "red";	},
+  	makeBlue:  function() { this.style.color = "blue";	},
+  	makeGreen: function() { this.style.color = "green";	},
 
+	events: {
+		"dblclick":	"makeRed",
+		"click b": 	"makeBlue",
+		"contextmenu .blue": "makeGreen"
+	},
+
+	render: function() {
+		return `Double-click for Red. <b class=blue > Click here for blue, right click for green.</b>.`;
+	}
+});
+```
 
 ### on-click vs onclick
-`on-event`-type events are synthetic and delegated. One event on the component watches all sub-tags for such events. Synthetic events vary from DOM events in that the `this` value is always the _component_, not the sub-tag that triggered the event. You can also use the word `event` inline in such atribs to refer to the event object, so `event.target` is the sub-tag that triggered the event. Lastly, there is a shortcut to `event.target` called `$1`, named after the console placeholder.
+`on-event`-type events are synthetic and delegated. One event on the component watches all sub-tags for such events. Synthetic events vary from DOM events in that the `this` value is always the _component_, not the sub-tag that triggered the event. You can also use the word `event` inline in such atribs to refer to the event object, so `event.target` is the sub-tag that triggered the event. Lastly, there is a shortcut to `event.target` called `$1`, named after the console placeholder. [Live Event Demo](http://pagedemos.com/98b5wt5dbhs3/)
 
 	
+### Custom Events
+Since DOM events, including custom events, bubble up to `<html>`, custom events are a great way to talk to parent components and containers. `VCC.trigger(elm, strEvent)` will dispatch an event of type `strEvent` on the `elm` Element, which will also fire on all parent elements. [Custom Event Live Demo](http://pagedemos.com/dftgryy5e32w/)
+
 ## Add-Ons
 VCC currently ships with a few common addons statically defined: 
 
