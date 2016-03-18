@@ -119,7 +119,7 @@ Updating `props` does **not** update attributes, but you can use `this.setAttrib
 Various methods are executed at specific points in a component's lifecycle.
 
 
-### Mounting: componentWillMount
+### componentWillMount
 
 ```javascript
 void componentWillMount()
@@ -128,7 +128,7 @@ void componentWillMount()
 Invoked once, both on the client and server, immediately before the initial rendering occurs. If you call `setState` within this method, `render()` will see the updated state and will be executed only once despite the state change.
 
 
-### Mounting: componentDidMount
+### componentDidMount
 
 ```javascript
 void componentDidMount()
@@ -139,7 +139,7 @@ Invoked once, only on the client (not on the server), immediately after the init
 If you want to integrate with other JavaScript frameworks, set timers using `setTimeout` or `setInterval`, or send AJAX requests, perform those operations in this method.
 
 
-### Updating: componentWillReceiveProps
+### componentWillReceiveProps
 
 ```javascript
 void componentWillReceiveProps(
@@ -163,7 +163,7 @@ componentWillReceiveProps: function(nextProps) {
 > There is no analogous method `componentWillReceiveState`. An incoming prop transition may cause a state change, but the opposite is not true. If you need to perform operations in response to a state change, use `componentWillUpdate`.
 
 
-### Updating: shouldComponentUpdate
+### shouldComponentUpdate
 
 ```javascript
 boolean shouldComponentUpdate(
@@ -188,7 +188,7 @@ By default, `shouldComponentUpdate` always returns `true` to prevent subtle bugs
 If performance is a bottleneck, especially with dozens or hundreds of components, use `shouldComponentUpdate` to speed up your app.
 
 
-### Updating: componentWillUpdate
+### componentWillUpdate
 
 ```javascript
 void componentWillUpdate(
@@ -205,7 +205,7 @@ Use this as an opportunity to perform preparation before an update occurs.
 > You *cannot* use `this.setState()` in this method. If you need to update state in response to a prop change, use `componentWillReceiveProps` instead.
 
 
-### Updating: componentDidUpdate
+### componentDidUpdate
 
 ```javascript
 void componentDidUpdate(
@@ -218,7 +218,7 @@ Invoked immediately after the component's updates are flushed to the DOM. This m
 Use this as an opportunity to operate on the DOM when the component has been updated.
 
 
-### Unmounting: componentWillUnmount
+### componentWillUnmount
 
 ```javascript
 void componentWillUnmount()
