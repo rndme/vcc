@@ -8,7 +8,7 @@
     "globals",
     "node"
   ],
-  "license": "MIT",
+  "license": "CCBY4",
   "ignore": [
     "**/.*",
     "node_modules",
