@@ -162,6 +162,7 @@ function VCC(def) {
 		  	function _render() {
 			  	var temp = def.render.call(that, VCC)||"";
 			  	if(_render.unD3f1n3d==temp) temp = "";
+			  	if(Array.isArray(temp)) temp = temp.join("");
 			  	temp=""+temp;
 			  	forEach(Object.keys(VCC.statics), function(k){
 					temp = VCC.statics[k](temp);
