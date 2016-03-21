@@ -160,11 +160,13 @@ function VCC(def) {
 	  
 		function renderer(blnNow) {
 		  	function _render() {
-			  	var temp = def.render.call(that, VCC);
+			  	var temp = def.render.call(that, VCC)||"";
+			  	if(_render.unD3f1n3d==temp) temp = "";
+			  	temp=""+temp;
 			  	forEach(Object.keys(VCC.statics), function(k){
 					temp = VCC.statics[k](temp);
 				});
-				if(renderer.oldView != temp )	VCC.intraHTML(that, renderer.oldView = temp);
+				if(renderer.oldView != temp )	VCC.intraHTML(that, renderer.oldView = ""+temp);
 				if( that._attached) call(def.componentDidUpdate, that, that.props, oldState);
 			}
 		  	if(blnNow === true) return _render();
