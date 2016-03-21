@@ -19,6 +19,10 @@ function assign(o, x){
 	for (var k in x) if (assign.hasOwnProperty.call(x, k)) o[k] = x[k];
 	return o;
 }
+
+//util for perf:
+function forEach(r,f){var m=r.length, i=0;for(; i<m; i++)f(r[i],i,r);};
+
 	
 // Virtual DOM:
 // intraHTML: a better innerHTML (partial/non-destructive updates) for faster and simpler view rendering. (c)2015:dandavis, 
@@ -470,11 +474,6 @@ VCC.PureRenderMixin = {
     return VCC.shallowCompare(this, nextProps, nextState);
   }
 };
-
-
-//util for perf:
-	function forEach(r,f){var m=r.length, i=0;for(; i<m; i++)f(r[i],i,r);};
-
 
 
    return VCC;
