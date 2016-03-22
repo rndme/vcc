@@ -115,7 +115,7 @@ Updating `props` does **not** update attributes, but you can use `this.setAttrib
 
 
 ## Component Lifecycle
-(These descrioptions taken from https://facebook.github.io/react/docs/component-specs.html)
+(These descriptions taken from https://facebook.github.io/react/docs/component-specs.html)
 
 Various methods are executed at specific points in a component's lifecycle.
 
