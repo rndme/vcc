@@ -193,6 +193,10 @@ function VCC(def) {
 			VCC.trigger(that, "update");
 		};
 	  
+	  	this.replaceState=function(state){
+	  		return this.setState(state, true);
+	  	};
+	  
 	  	this._renderer=	renderer;
 		this._render= this.setState.bind(this, {});
 		call(def.componentWillMount, this, VCC, def);
