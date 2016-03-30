@@ -473,6 +473,42 @@ VCC({
 });
 ```
 
+### Store Example
+This example uses VCC.Store to connect many comonent states in a non-conflicting manner:  [Live Demo of Store example](hhttp://pagedemos.com/v86mfutwxn5v/)
+```html
+<h1>VCC Store Demo</h1>
+
+a <vcc-setnum name=a></vcc-setnum> <br> +<br>
+b <vcc-setnum name=b></vcc-setnum> <br> =<br> 
+c <vcc-setnum name=c></vcc-setnum>  
+
+<script src=http://danml.com/bundle/rndme.vcc_.js></script>
+<script>
+
+var store=VCC.Store({
+	SET_A: (state,e)=> state.c=state.b+(state.a=e.n),
+  	SET_B: (state,e)=> state.c=state.a+(state.b=e.n),
+  	SET_C: (state,e)=>{  state.a=e.n-state.b; state.c=e.n;  },
+},{
+	a: 0,
+  	b: 0,
+  	c: 0
+});
+
+VCC({  
+	displayName: "setnum",
+  	renderTrigger: store.subscribe.bind(store),
+  	setIt: function(e){
+		store.dispatch({type: "SET_"+this.props.name.toUpperCase(), n: +e.target.value});
+	},
+	render: function(){ var s=store.getState();
+	  	return "<input type=number on-input=this.setIt value="+s[this.props.name]+">";
+	}
+});
+
+</script>
+```
+You might recognize the pattern as [redux](https://github.com/reactjs/redux), which VCC.Store _is_ a very basic implimentation of.
 
 ### Isomorphic Example
 This example uses php file to pre-populate the data for SEO and better percieved performance:  [Live Demo of isomprphic example](http://danml.com/vcc/isomorphic.php)
