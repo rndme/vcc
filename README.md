@@ -1,6 +1,7 @@
 # VCC
 View Component Creator : lightweight reactive web components <br />
-View the Unofficial [TodoMVC](http://todomvc.com/) [Todo Application Demo](http://danml.com/todo/) to kick the tires
+View the Unofficial [TodoMVC](http://todomvc.com/) [Todo Application Demo](http://danml.com/todo/) to kick the tires.<br>
+View a [simple "isomorphic" example](http://danml.com/vcc/isomorphic.php) that uses PHP for a backend.
 
 
 View fancier [online docs](http://danml.com/vcc/docs.html)
