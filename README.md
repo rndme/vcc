@@ -1,7 +1,6 @@
 # VCC
 View Component Creator : lightweight reactive web components <br />
 View the Unofficial [TodoMVC](http://todomvc.com/) [Todo Application Demo](http://danml.com/todo/) to kick the tires.<br>
-View a [simple "isomorphic" example](http://danml.com/vcc/isomorphic.php) that uses PHP for a backend.
 
 
 View fancier [online docs](http://danml.com/vcc/docs.html)
@@ -475,6 +474,72 @@ VCC({
 ```
 
 
+### Isomorphic Example
+This example uses php file to pre-populate the data for SEO and better percieved performance:  [Live Demo of isomprphic example](http://danml.com/vcc/isomorphic.php)
+```php
+<?php
+
+$zip = 1 * $_GET['zip']; // validate input to be a number to stop XSS
+if(!$zip) $zip = 90210;
+$data = json_decode(file_get_contents('http://api.zippopotam.us/us/' . $zip ));
+
+?><!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Isomorphic VCC Application Demo</title>
+	<link rel=stylesheet href="//cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.6/superhero/bootstrap.min.css" >	
+</head><body class=container>
+<h1>Isomorphic <a href="https://github.com/rndme/vcc/">VCC</a> Application Demo</h1>
+<h2> App Input </h2>  
+	<label> 
+		Zip Code: <input onchange="card.setAttribute('zip', value)" value="<? echo $zip;?>" list=zips >
+	</label> 
+	<button  class=btn-success>Change</button>
+    <!-- pre-populate some zip codes to tryout: -->
+	<datalist id=zips>
+		<option>33133</option>
+		<option>61801</option>
+		<option>90210</option>
+		<option>10001</option>
+		<option>96817</option>
+	</datalist>
+  
+<h2> App Output</h2>
+	<vcc-zip id=card zip="<? echo $zip; ?>"> 
+		The zip code <? echo $zip;?> is in the state of  <? echo $data->places[0]->state;?>
+	</vcc-zip>
+  
+<hr>
+
+This page is pre-populated with data from <a href=isomorphic.php.txt>a php file</a>, then the client takes over state management.   
+A <a href=http://mustache.github.io/>mustache template</a> can be used to share a template between <a href=https://github.com/bobthecow/mustache.php>PHP</a> and <a href=https://github.com/janl/mustache.js/>JS</a>, but the pay-off for a simple example like this is minimal.
+  
+<script src=http://danml.com/bundle/rndme.vcc_.js></script>
+<script>
+  
+VCC({  
+	displayName: "zip",
+  	getInitialState: function(){
+		return {
+			data: <? echo json_encode($data->places[0]);?>		  	
+		}
+  	},
+	componentWillReceiveProps: function(newProps){
+		history.replaceState(null, null, "?zip=" + newProps.zip);
+		fetch("http://api.zippopotam.us/us/" + newProps.zip)	
+		 .then(function(a){return a.json()})	
+		 .then(function(a){this.setState({ data: a.places[0] });}.bind(this));		  
+	},
+	render: function(){ 
+	  	return  " The zip code " + this.props.zip + " is in the state of  " + this.state.data.state;
+	}
+});
+
+</script>
+</body>
+</html>
+```
  
 
 ## Instructional Demos
