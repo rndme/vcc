@@ -37,24 +37,24 @@ These properties control almost eveything about the component using a decalrativ
 
 |Property|Type|Description |
 |-------:|:------:|-----|
-|`_delegate`|Boolean|event delegation option: eg. `<ul on-click=...` to catch `<li>` clicks |
-|`componentDidMount()`| Function |_Event_: After initial `.render()`, now in DOM and populated |
-|`componentDidUpdate (prevProps, prevState)`|Function|_Event_: new props/state, good for DOM |
-|`componentWillMount`|Function|_Event_: Before `.render()` (no DOM children) |
-|`componentWillReceiveProps (newProps)`|Function|_Event_: Good for setState() |
-|`componentWillUnmount()`|Function|_Event_: Invoked upoon DOM node removal |
-|`componentWillUpdate (newProps, newState)`|Function|_Event_: about to render, too late for `.setState()` |
 |`displayName`|String| **REQUIRED** - the tagName of the custom element (without the `vcc-` prefix) |
-|`events`|Object| Specifies DOM events to be bound to methods on the component |
+|`componentDidMount()`| Function |_Event_: After initial `.render()`, now in DOM and populated |
+|`componentDidUpdate (prevProps, prevState)`|Function|_Event_: new props/state, good for DOM work |
+|`componentWillMount`|Function|_Event_: Before `.render()` no DOM children, but has state |
+|`componentWillReceiveProps (newProps)`|Function|_Event_: Atrrib changed. Good for setState() |
+|`componentWillUnmount()`|Function|_Event_: Invoked _after_ DOM node removal |
+|`componentWillUpdate (newProps, newState)`|Function|_Event_: about to re-render, too late for `.setState()` |
+|`shouldComponentUpdate (newProps, newState)`|Function| Skip `.render()` by returning `false` |
 |`getDefaultProps()`|Function|object or object-returning function of initial properties (attribs) |
 |`getInitialState()`|Function|object or object-returning function of default state config (internal)  |
+|`propTypes`|Object|an object of methods used to coerce or validate matching-name `props` |
+|`render()`|Function| string-returning method that defines component's .innerHTML |
+|`events`|Object| Specifies DOM events to be bound to methods on the component |
 |`mixins`|Object| Object or Array of Objects used to extend the component definition |
 |`mixouts`|Object|Object or Array of Objects used to extend the component's _instance_ properties |
-|`propTypes`|Object|an object of methods used to coerce or validate matching-name `props` |
 |`proto`|Object|Specifies Custom Element prototype, defaults to `HTMLElement.prototype` |
-|`render()`|Function| string-returning method that defines component's .innerHTML |
 |`renderTrigger`|Function|a shortcut to bind to something like redux or CIA's `.subscribe` method, eg. `renderTrigger:store.subscribe,` will re-render each time the store updates |
-|`shouldComponentUpdate (newProps, newState)`|Function| Skip `.render()` by returning `false` |
+|`_delegate`|Boolean|event delegation option: eg. `<ul on-click=...` to catch `<li>` clicks |
 
 ### Instance Methods
 Each component is an Element with a few extra methods added on be default.
