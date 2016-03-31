@@ -313,7 +313,7 @@ Activated by setting `_static: true,` in a component definition, static componen
 This partially solves [the drawbacks](#caveats) associated with the polyfill version of `document.registerElement` VCC uses in some browsers, 
 and allows all browsers to render fast and simple sub-components. Only the options listed below will be applied to the component. 
 
-Static components do not update once rendered (instead, they are cheap to render) so they don't need methods like `shouldComponentUpdate` or `setState`. You cannot update the state of an instance, but you can modify the value returned by initialState to activate component-wide changes on the next render. If a parent component changes an attrib given to the static component, that new value will show up in the render, making attributes the primary method for customizing static components.
+Static components do not update once rendered (instead, they are cheap to render) so they don't need methods like `shouldComponentUpdate` or `setState`. You cannot update the state of an instance, but you can modify the value returned by initialState to activate component-wide changes on the next render, a major advantage of not having a build requirement. If a parent component changes an attrib given to the static component, that new value will show up in the render, making attributes the primary method for customizing static components.
 
 ### Static Component Definition Members
 
@@ -509,6 +509,55 @@ VCC({
 </script>
 ```
 You might recognize the pattern as [redux](https://github.com/reactjs/redux), which VCC.Store _is_ a very basic implimentation of.
+
+
+### Mustache Example
+VCC doesn't have to use ES6 templating, you can use any or even no template engine. The only requirement of `.render()` is that it return a String. This example replicates [the rating widget](http://pagedemos.com/r3dpfu9djrw5/) using the popular [mustache.js](https://github.com/janl/mustache.js/) templater instead of ES6.
+
+[Live Demo of Mustache Templates](http://pagedemos.com/vr9h2mtj9vfx/)
+
+```html
+<vcc-rate value=2></vcc-rate>  
+<script type=template id=tmpStars>
+  <span class=star title=1>★</span>
+  <span class=star title=2>★</span>
+  <span class=star title=3>★</span>
+  <span class=star title=4>★</span>
+  <span class=star title=5>★</span>
+  <small>( {{props.value}} )</small>
+</script>  
+<script src="http://danml.com/bundle/rndme.vcc.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>  
+<script>
+
+VCC({
+	displayName: 'rate',
+	render: function(){
+		return Mustache.to_html(tmpStars.textContent, this);
+	},
+	onclick: function(e) {
+		 this.attributes.value.nodeValue= e.target.title;
+	},
+  	css:`vcc-rate .star {
+			color:#444;
+			padding:0.2em;
+			cursor:pointer;
+			transition:500ms 50ms color;
+		}
+		vcc-rate small { font-size: 65%; position: relative; top: -0.2em; }
+		vcc-rate[value]:hover>.star[title] {color:#111;}
+		html body vcc-rate[value]:hover>.star[title]:hover ~ span[title] {color:#ccc;}
+
+		vcc-rate[value='1'] .star:first-child ~ span, 
+		vcc-rate[value='2'] .star[title='2'] ~ span, 
+		vcc-rate[value='3'] .star[title='3'] ~ span, 
+		vcc-rate[value='4'] .star[title='4'] ~ span {
+			color:#ccc;
+		}`
+});
+</script>
+```
+
 
 ### Isomorphic Example
 This example uses php file to pre-populate the data for SEO and better percieved performance:  [Live Demo of isomprphic example](http://danml.com/vcc/isomorphic.php)
