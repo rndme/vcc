@@ -95,7 +95,7 @@ function VCC(def) {
 	  	
 	  	
 		//allow "inheritance from array of mixouts left to right:  
-		if(def.mixouts) forEach(Array.isArray(def.mixouts) ? def.mixouts : [def.mixouts], function(mixout) {
+		if(def.mixouts) forEach(Array.isArray(def.mixouts) ? def.mixouts : [typeof def.mixouts ==="function"?def.mixouts.call(that):def.mixouts], function(mixout) {
 			forEach(Object.keys(mixout), function(k){	
 				that[k]= mixout[k];
 			});
