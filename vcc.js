@@ -68,9 +68,6 @@ function VCC(def) {
 		});
 	});
 
-	//make render optional by subbin in Boolean if missing:
-	if(typeof def.render !== "function") def.render = Boolean;
-
 	proto = Object.create(def.proto || HTMLElement.prototype);
 	proto.detachedCallback = def.componentWillUnmount || Boolean;
 	proto.attachedCallback = function(){
@@ -196,7 +193,10 @@ function VCC(def) {
 	  	this.replaceState=function(state){
 	  		return this.setState(state, true);
 	  	};
-	  
+
+	  	//make render optional by subbin in Boolean if missing:
+		if(typeof def.render !== "function") def.render = Boolean;
+
 	  	this._renderer=	renderer;
 		this._render= this.setState.bind(this, {});
 		call(def.componentWillMount, this, VCC, def);
