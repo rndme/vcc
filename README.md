@@ -514,7 +514,7 @@ You might recognize the pattern as [redux](https://github.com/reactjs/redux), wh
 ### Mustache Example
 VCC doesn't have to use ES6 templating, you can use any or even no template engine. The only requirement of `.render()` is that it return a String. This example replicates [the rating widget](http://pagedemos.com/r3dpfu9djrw5/) using the popular [mustache.js](https://github.com/janl/mustache.js/) templater instead of ES6.
 
-[Live Demo of Mustache Templates](http://pagedemos.com/vr9h2mtj9vfx/)
+[Live Demo of Mustache Templates](http://pagedemos.com/vj6pt75mn6z6/)
 
 ```html
 <vcc-rate value=2></vcc-rate>  
@@ -532,8 +532,12 @@ VCC doesn't have to use ES6 templating, you can use any or even no template engi
 
 VCC({
 	displayName: 'rate',
+  	mixouts:{	  
+		template: Mustache.to_html.bind(Mustache), 
+	 	contents: document.getElementById("tmpStars").textContent
+	},
 	render: function(){
-		return Mustache.to_html(tmpStars.textContent, this);
+		return this.template(this.contents, this);
 	},
 	onclick: function(e) {
 		 this.attributes.value.nodeValue= e.target.title;
