@@ -6,12 +6,11 @@ View the Unofficial [TodoMVC](http://todomvc.com/) [Todo Application Demo](http:
 View fancier [online docs](http://danml.com/vcc/docs.html)
 
 ## About
-A react-inspired way of using web standards to create reusable semantic components. <br>
-It's essentially a light-weight API to create [custom elements](http://w3c.github.io/webcomponents/spec/custom/) using syntax like [React](https://facebook.github.io/react/) instead of [polymer](https://www.polymer-project.org/1.0/) or [x-tags](http://x-tag.github.io/). Built for simplicity on well-tested tools and concepts, there are no plans for major new feature additions, but bug and performance reports/PRs are welcome from all. I'd love to hear any ideas or suggestions, feel free to open an issue and tell us how you really feel.
+A light-weight API to create [W3 custom elements](http://w3c.github.io/webcomponents/spec/custom/) using a [React](https://facebook.github.io/react/)-like syntax instead of [polymer](https://www.polymer-project.org/1.0/) or [x-tags](http://x-tag.github.io/). VCC has a one-way data flow into components via attributes, and each component has a private internal state. Built for simplicity (no building, no transpiling, no pre-compilation) on well-tested tools and concepts ([registerElement](https://github.com/WebReflection/document-register-element), [VDOM](https://github.com/rndme/intraHTML/), [odiff](https://github.com/Tixit/odiff)), there are no current plans for major new features, but PRs are welcome.
 
 
 ### Setup
-Use `npm install vcc` or `bower install vcc` or just download and include [the script file](https://raw.githubusercontent.com/rndme/vcc/master/vcc.js) in your page or application.
+Use `npm install vcc` or `bower install vcc` or just download and include [the script file](https://raw.githubusercontent.com/rndme/vcc/master/vcc.js) in your page or application. There's no other steps, build processes or large bundles required. With custom html in your document/app and VCC in a script, you're good to go.
 
 ### Advantages
 
