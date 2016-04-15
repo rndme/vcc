@@ -12,14 +12,19 @@ A light-weight API to create [W3 custom elements](http://w3c.github.io/webcompon
 ### Setup
 Use `npm install vcc` or `bower install vcc` or just download and include [the script file](https://raw.githubusercontent.com/rndme/vcc/master/vcc.js) in your page or application. There's no other steps, build processes or large bundles required. With custom html in your document/app and VCC in a script, you're good to go.
 
+
+
 ### Advantages
 
 #### HTML Elements
 Components expose custom methods and events to non-VCC actors. This makes it easy to set props by changing an attribute, and external props can be hit using  CSS2 `[attribute]` selectors. You can also easily inspect the full properties of the component in devtools without any browser add-ons. Isomorphic apps are easy becuase you just need to generate HTML on the server, which all servers can do (php included). Lastly, serializing the component using ex. `elm.outerHTML` will define non-default prop values for later use. All we know and love about html, now available in components.
 
+
+
 #### No build process
 Changes can be made on the fly to one part without needing to re-bundle the whole application, allowing better caching, on-the-fly patching, and more contextualized error messages.
 The source of the component is the same code that runs, removing a layer of abstraction while allowing better debugging with simpler tools. More than anything, it's just simpler and more in the spirit of the web where code runs in the open.
+
 
 
 #### Lightweight Runtime
