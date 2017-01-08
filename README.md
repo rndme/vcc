@@ -516,7 +516,7 @@ You might recognize the pattern as [redux](https://github.com/reactjs/redux), wh
 
 
 ### Mustache Example
-VCC doesn't have to use ES6 templating, you can use any or even no template engine. The only requirement of `.render()` is that it return a String. This example replicates [the rating widget](http://pagedemos.com/r3dpfu9djrw5/) using the popular [mustache.js](https://github.com/janl/mustache.js/) templater instead of ES6.
+VCC doesn't have to use ES6 templating, you can use any or even no template engine. The only requirement of `.render()` is that it returns a String. This example replicates [the rating widget](http://pagedemos.com/r3dpfu9djrw5/) using the popular [mustache.js](https://github.com/janl/mustache.js/) templater instead of ES6.
 
 [Live Demo of Mustache Templates](http://pagedemos.com/vj6pt75mn6z6/)
 
