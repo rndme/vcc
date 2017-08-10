@@ -194,7 +194,7 @@ function VCC(def) {
 	  		return this.setState(state, true);
 	  	};
 
-		var origValue = def.innerHTML;
+		var origValue = this.innerHTML;
 		if(typeof def.render !== "function") def.render = function(){return origValue;}.bind(this);
 		
 		
