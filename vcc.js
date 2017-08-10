@@ -194,8 +194,12 @@ function VCC(def) {
 	  		return this.setState(state, true);
 	  	};
 
+		var origValue = def.innerHTML;
+		if(typeof def.render !== "function") def.render = function(){return origValue;}.bind(this);
+		
+		
 	  	//make render optional by subbin in Boolean if missing:
-		if(typeof def.render !== "function") def.render = Boolean;
+		if(typeof def.render !== "function") def.render = this._revert;
 
 	  	this._renderer=	renderer;
 		this._render= this.setState.bind(this, {});
