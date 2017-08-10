@@ -195,11 +195,11 @@ function VCC(def) {
 	  	};
 
 		this._orig = this.innerHTML;
-		if(typeof def.render !== "function") def.render = function(){return this._orig;}.bind(this);
+		if(typeof def.render !== "function") def.render = function(){return this._orig;};
 		
 		
 	  	//make render optional by subbin in Boolean if missing:
-		if(typeof def.render !== "function") def.render = this._revert;
+		//if(typeof def.render !== "function") def.render = this._revert;
 
 	  	this._renderer=	renderer;
 		this._render= this.setState.bind(this, {});
