@@ -329,7 +329,7 @@ VCC.select = function(obj, arrKeys){
 	return out;
 };
 	
-VCC.pluck = function(obj, key){
+VCC.pluck = function(key, obj){
 	return obj[key];
 };	
 	
