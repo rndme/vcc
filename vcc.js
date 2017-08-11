@@ -4,6 +4,7 @@
 		// AMD. Register as an anonymous module.
 		define([], factory);
 	} else if (typeof exports === 'object') {
+
 		// Node. Does not work with strict CommonJS, but
 		// only CommonJS-like environments that support module.exports,
 		// like Node.
@@ -302,7 +303,7 @@ VCC.attrs=function(o){
 	  	if(v===false) return " ";
 	  	if(v===true) return k+" ";
 	  	return k+"="+JSON.stringify(v);
-	}).join("");
+	}).join(" ");
 };
 
 VCC._=function(r){
