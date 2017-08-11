@@ -362,6 +362,18 @@ VCC.hidden= VCC.else= function(v){
 	return v ? ' hidden ' : ' ';
 };
 	
+VCC.filter=function(strElmContent, strTerm){
+  return (strTerm && strElmContent.indexOf(strTerm)===-1) ? 
+	" hidden " :
+        ""
+};  
+
+VCC.paginate=  function(index, page, perPage){
+  return (perPage * (page+1) > index  &&  perPage * (page) < index) ? 
+    	"" : 
+    	" hidden ";
+};  
+	
 VCC.escape=function(str){
 	return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 };
@@ -399,7 +411,7 @@ VCC.fade = function fadeIn(elms, period){
    	setTimeout(function(){ elm.style.opacity = 1;}, period * index); 
    });
 };
-	
+
 VCC.css = function css(strCSS, blnRemove) {
 	var text, doc = document;
 	css.cache = css.cache || {};
