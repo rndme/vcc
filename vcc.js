@@ -361,9 +361,18 @@ VCC.show= VCC.if= function(v){
 VCC.hidden= VCC.else= function(v){
 	return v ? ' hidden ' : ' ';
 };
+	
+VCC.escape=function(str){
+	return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+};
 
 VCC.data = function _(elm, obj) {
-	if(!obj) return JSON.parse(JSON.stringify(elm.dataset));
+  
+	if(!obj && elm instanceof Element) return JSON.parse(JSON.stringify(elm.dataset));
+	if(!obj) return Object.keys(elm).map(function(k){
+		return " data-"+k+"=\"" + VCC.escape(""+elm[k]) + "\" ";
+	}).join("");
+	
 	Object.keys(obj).map(function(k) {
 		if(obj[k] === false) {
 			elm.removeAttribute("data-" + k);
@@ -373,7 +382,7 @@ VCC.data = function _(elm, obj) {
 	});
 	return _(elm);
 };
-
+	
 VCC.trigger = function(elm, strEvent) {
 	var event = document.createEvent('Event');
 	event.initEvent(strEvent, true, true);
