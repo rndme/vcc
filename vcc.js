@@ -315,7 +315,16 @@ VCC.$=function(selector, base){
 };
 
 VCC.orderBy=function(key){
-  return function _sorter(a,b){return a[key]>b[key] ? 1 : ( a[key] === b[key] ? 0 : -1); };
+	return function _sorter(a,b){return a[key]>b[key] ? 1 : ( a[key] === b[key] ? 0 : -1); };
+};
+	
+VCC.json = function(json){
+	return typeof json.json === "function" ? 
+		json.json() :  // fetch response usage
+		(typeof json==="string" ?  // raw data usages
+		 	JSON.parse(json) : 
+		 	JSON.stringify(json)
+		); 
 };
 	
 VCC.elm=function ht(ob){
