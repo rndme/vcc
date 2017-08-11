@@ -306,6 +306,33 @@ VCC.attrs=function(o){
 	}).join(" ");
 };
 
+VCC.data = function _(elm, obj) {
+  
+	if(!obj && elm instanceof Element) return JSON.parse(JSON.stringify(elm.dataset));
+	if(!obj) return Object.keys(elm).map(function(k){
+		return " data-"+k+"=\"" + VCC.escape(""+elm[k]) + "\" ";
+	}).join("");
+	
+	Object.keys(obj).map(function(k) {
+		if(obj[k] === false) {
+			elm.removeAttribute("data-" + k);
+		} else {
+			elm.dataset[k] = obj[k] === true ? "" : obj[k];
+		}
+	});
+	return _(elm);
+};
+	
+VCC.select = function(obj, arrKeys){
+	var out= {};
+	arrKeys.forEach(function(k){ out[k] = obj[k]; });
+	return out;
+};
+	
+VCC.pluck = function(obj, key){
+	return obj[key];
+};	
+	
 VCC._=function(r){
 	return [].slice.call(r);
 };
@@ -377,23 +404,6 @@ VCC.paginate=  function(index, page, perPage){
 	
 VCC.escape=function(str){
 	return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-};
-
-VCC.data = function _(elm, obj) {
-  
-	if(!obj && elm instanceof Element) return JSON.parse(JSON.stringify(elm.dataset));
-	if(!obj) return Object.keys(elm).map(function(k){
-		return " data-"+k+"=\"" + VCC.escape(""+elm[k]) + "\" ";
-	}).join("");
-	
-	Object.keys(obj).map(function(k) {
-		if(obj[k] === false) {
-			elm.removeAttribute("data-" + k);
-		} else {
-			elm.dataset[k] = obj[k] === true ? "" : obj[k];
-		}
-	});
-	return _(elm);
 };
 	
 VCC.trigger = function(elm, strEvent) {
