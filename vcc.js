@@ -341,8 +341,12 @@ VCC.checked=function(v){
 	return v ? ' checked="" ' : '';
 };
 
-VCC.show=function(v){
+VCC.show= VCC.if= function(v){
 	return v ? '' : ' hidden ' ;
+};
+	
+VCC.hidden= VCC.else= function(v){
+	return v ? ' hidden ' : ' ';
 };
 
 VCC.data = function _(elm, obj) {
