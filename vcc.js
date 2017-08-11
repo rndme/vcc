@@ -314,6 +314,10 @@ VCC.$=function(selector, base){
 	return VCC._(base.querySelectorAll(selector));
 };
 
+VCC.orderBy=function(key){
+  return function _sorter(a,b){return a[key]>b[key] ? 1 : ( a[key] === b[key] ? 0 : -1); };
+};
+	
 VCC.elm=function ht(ob){
 	if(!ob) ob= "div";
 	if(typeof ob==="string") return document.createElement(ob);
