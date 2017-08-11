@@ -388,7 +388,18 @@ VCC.trigger = function(elm, strEvent) {
 	event.initEvent(strEvent, true, true);
 	return elm.dispatchEvent(event);
 };
-
+	
+VCC.fade = function fadeIn(elms, period){
+   period = period || 40; 
+   VCC.css("[style*=opacity]{transition: "+(period*2.5)+"ms opacity;}");   
+   if(typeof elms === "string") elms = VCC.$(elms);
+   if(!Array.isArray(elms)) elms=VCC._(elms);
+   elms.map(function(elm, index){
+   	elm.style.opacity = 0;
+   	setTimeout(function(){ elm.style.opacity = 1;}, period * index); 
+   });
+};
+	
 VCC.css = function css(strCSS, blnRemove) {
 	var text, doc = document;
 	css.cache = css.cache || {};
