@@ -308,6 +308,9 @@ VCC.elm({ $: "div", class: "main", _: [
 * `VCC.hasRoute(route, strIfFalse)` - uses `location.hash` to match a String or RegExp route name
 * `VCC.getRoute(route)` - match `location.hash` w/ String/RX name of a `key=value` pair to get value
 * `VCC.show(val)` - if not `==true`, then returns " hidden ", else returns an empty string
+* `VCC.if(val)` - if not `==true`, then returns " hidden ", else returns an empty string
+* `VCC.hide(val)` - if not `==false`, then returns " hidden ", else returns an empty string
+* `VCC.else(val)` - if not `==false`, then returns " hidden ", else returns an empty string
 * `VCC.trigger(elm, evt)` - given Element and String event name, raise that event on the element.
 
 
