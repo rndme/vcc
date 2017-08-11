@@ -451,7 +451,8 @@ function Store(reductions, state, pool) {
 // default plugins:
 VCC.LinkedStateMixin={
   componentDidMount: function(){
-		var hits=[].slice.call(this.querySelectorAll("[link-state]"));
+		var hits=[].slice.call(this.querySelectorAll("[link-state]")),
+		    rxCheck = /((radio)|(checkbox))/i;
 		if(!hits.length) return;
 		hits.forEach(function(inp){
 			var prop=inp.getAttribute("link-state");
@@ -460,17 +461,20 @@ VCC.LinkedStateMixin={
 			  	ob[prop]= value;
 				this.setState(ob);
  			};
-		  	inp.setAttribute("on-change", "this._handle_"+prop+"($0.value)");
-		  	inp.value=this.state[prop];
+			var domprop = rxCheck.test(inp.type) ? "checked" : "value";
+		  	inp.setAttribute("on-change", "this._handle_"+prop+"($0."+domprop+")");
+		  	inp[domprop] = this.state[prop];
 		}, this);
   },
 
   componentWillUpdate: function(){
-		var hits=[].slice.call(this.querySelectorAll("[link-state]"));
+		var hits=[].slice.call(this.querySelectorAll("[link-state]")).
+		    rxCheck = /((radio)|(checkbox))/i;
 		if(!hits.length) return;
 		hits.forEach(function(inp){
 			var prop=inp.getAttribute("link-state");
-		  	inp.value=this.state[prop];
+			var domprop = rxCheck.test(inp.type) ? "checked" : "value";
+		  	inp[domprop] = this.state[prop];
 		}, this);
   }
 };
