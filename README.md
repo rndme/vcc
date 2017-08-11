@@ -312,8 +312,8 @@ VCC.elm({ $: "div", class: "main", _: [
 * `VCC.hide(val)` - if not `==false`, then returns " hidden ", else returns an empty string
 * `VCC.else(val)` - if not `==false`, then returns " hidden ", else returns an empty string
 * `VCC.trigger(elm, evt)` - given Element and String event name, raise that event on the element.
-
-
+* `VCC.json([val])` - unified JSON helper turns non-strings into strings, or strings and fetch responses into objects
+* `VCC.orderBy(key)` - returns a sort() callback function targeting a root key by name. `arr.sort(VCC.orderBy("lastName"))`
 
 ## Static Components
 Activated by setting `_static: true,` in a component definition, static components render extremely fast by running on a lightweight subset of the full VCC API. 
