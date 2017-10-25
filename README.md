@@ -52,6 +52,7 @@ These properties control almost eveything about the component using a decalrativ
 |`getDefaultProps()`|Function|object or object-returning function of initial properties (attribs) |
 |`getInitialState()`|Function|object or object-returning function of default state config (internal)  |
 |`propTypes`|Object|an object of methods used to coerce or validate matching-name `props` |
+|`css`|String|CSS code used to style the module. |
 |`render()`|Function| string-returning method that defines component's .innerHTML |
 |`events`|Object| Specifies DOM events to be bound to methods on the component |
 |`mixins`|Object| Object or Array of Objects used to extend the component definition |
