@@ -154,7 +154,7 @@ function VCC(def) {
 	  	}//end if events?
 
 		// add css (if any)
-		if(def.css) VCC.css(def.css);
+		if(def.css) VCC.css(String(def.css).replace(/\$0/g, def.displayName ));
 	  
 		function renderer(blnNow) {
 		  	function _render() {
