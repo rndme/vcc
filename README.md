@@ -5,6 +5,7 @@ View an Unofficial [TodoMVC](http://todomvc.com/) [Todo Application Demo](http:/
 
 View fancier [online docs](http://danml.com/vcc/docs.html)
 
+
 ## About
 A light-weight API to create [W3 custom elements](http://w3c.github.io/webcomponents/spec/custom/) using a [React](https://facebook.github.io/react/)-like syntax instead of [polymer](https://www.polymer-project.org/1.0/) or [x-tags](http://x-tag.github.io/). VCC has a one-way data flow into components via attributes, and each component has a private internal state. Built for simplicity (no building, no transpiling, no pre-compilation) on well-tested tools and concepts ([registerElement](https://github.com/WebReflection/document-register-element), [VDOM](https://github.com/rndme/intraHTML/), [odiff](https://github.com/Tixit/odiff)), there are no current plans for major new features, but PRs are welcome.
 
