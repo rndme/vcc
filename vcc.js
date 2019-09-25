@@ -1,4 +1,4 @@
-//vcc.js by dandavis. a simple View Component Creator.  [CCBY4]
+	//vcc.js by dandavis. a simple View Component Creator.  [CCBY4]
 (function (root, factory) {
 	if (typeof define === 'function' && define.amd) {
 		// AMD. Register as an anonymous module.
@@ -196,7 +196,9 @@ function VCC(def) {
 		if(typeof def.renderTrigger === "function") def.renderTrigger(this._renderer.bind(this));
 	} //end constructor()
 	
-		attachedCallback(){
+		connectedCallback(){
+		if(!this.isConnected) return;
+		if(this._attached) return;  
 		this._attached=true;
 	  [].forEach.call(this.querySelectorAll("[ref]"), function(elm){
 		  	var ref=elm.getAttribute("ref"),
